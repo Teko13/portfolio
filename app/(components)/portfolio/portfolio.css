@@ -1,0 +1,124 @@
+@keyframes projectDisplays {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.portfolio__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.category h3 {
+    cursor: pointer;
+}
+
+.category h3.selected {
+    position: relative;
+    padding: 1rem;
+    background: var(--color-bg-variant);
+    color: var(--color-primary);
+}
+
+@keyframes category-bar {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.category h3.selected::after {
+    content: "";
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 3px;
+    background: var(--color-primary);
+    animation: category-bar 500ms ease forwards;
+}
+
+.portfolio__item {
+    background: var(--color-bg-variant);
+    padding: 1.3rem;
+    border: 1px solid transparent;
+    border-radius: .5rem;
+    transition: var(--transition);
+    animation: projectDisplays 400ms ease both;
+}
+
+.portfolio__item:hover {
+    background: transparent;
+    border-color: var(--color-primary-variant);
+}
+
+.portfolio__item-image {
+    height: 13rem;
+    overflow: hidden;
+    border-radius: .5rem;
+}
+
+@keyframes img-anim {
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(calc(-100% + 13rem));
+    }
+}
+
+.portfolio__item-image:hover img {
+    animation: img-anim 3s ease forwards alternate infinite;
+}
+
+.portfolio__item h3 {
+    margin: 1.2rem 0 2rem;
+}
+
+.portfolio__links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/*==================MEDIA QUERIES (MEDIUM DEVICE)*/
+@media screen and (max-width: 1024px) {
+    .portfolio__container {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+    }
+    .category {
+        flex-direction: column;
+    }
+    .portfolio__container {
+        display: flex;
+        flex-direction: column;
+        max-width: 580px;
+    }
+}
+
+/*==================MEDIA QUERIES (SMALL DEVICE)*/
+@media screen and (max-width: 600px) {
+    .portfolio__container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
