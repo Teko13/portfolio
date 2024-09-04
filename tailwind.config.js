@@ -14,8 +14,12 @@ module.exports = {
       },
       colors: {
         "primary": "#4db5ff",
-        "bg-variant": "#2c2c5c"
-      }
+        "bg": "#2c2c5c",
+        "bg-variant": "#1f1f38"
+      },
+      boxShadow: {
+        'custom-black': '0 4px 50px black', 
+      },
     },
   },
   plugins: [],
