@@ -10,6 +10,7 @@ function page() {
         <a href='/cv.pdf' download="/cv.pdf" className="bg-primary rounded-md p-2 text-bg-variant font-black">
             TELECHARGER
         </a>
+        <a href="/" className="text-primary underline">Retour</a>
     </div>
   )
 }
