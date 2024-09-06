@@ -9,7 +9,7 @@ import { Righteous } from 'next/font/google';
 import qrCode from "../(assets)/qr.jpeg";
 
 function CV() {
-    const [darkMode, setDarkMode] = useState(true);
+    const [darkMode, setDarkMode] = useState(false);
     const handleTheme = () => {
         setDarkMode(!darkMode);
     }
@@ -248,7 +248,7 @@ function CV() {
                 <h3 className="tet-md font-black">
                     Loisirs
                 </h3>
-                <div className={`flex items-center w-full justify-around border-solid border-[1px]`}>
+                <div className={`flex items-center w-full justify-around`}>
                     {
                         loisirs.map((item, key) => (
                             <div className="">
@@ -264,8 +264,8 @@ function CV() {
 
 const IndiceFrame = ({fill, darkMode}) => {
     return (
-        <div className={`w-[20px] h-[20px] rounded-md bg-bg-variant overflow-hidden`}>
-            <div style={{width: `${fill}%`}} className={`h-full bg-primary`}></div>
+        <div className={`w-[20px] h-[20px] rounded-md ${darkMode && "bg-bg-variant" || ("bg-white border-solid border-black border-[1px]")} overflow-hidden`}>
+            <div style={{width: `${fill}%`}} className={`h-full ${darkMode && "bg-primary" || "bg-black"}`}></div>
         </div>
     )
 }
