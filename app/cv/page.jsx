@@ -15,11 +15,11 @@ function CV() {
     }
     const [frontendIndice, setFrontendIndice] = useState([]);
     const loisirs = ["Technologie & Innovation", "Espace & Aéronautique", "Énigmes & Mystères"]
-    const frontendLevel = 70;
+    const frontendLevel = 85;
     const [backendIndice, setBackendIndice] = useState([]);
-    const backendLevel = 75;
+    const backendLevel = 87;
     const [cmsIndice, setCmsIndice] = useState([]);
-    const cmsLevel = 90;
+    const cmsLevel = 93;
     const levels = [
         {
             title: "Frontend",
@@ -262,7 +262,8 @@ function CV() {
   )
 }
 
-const IndiceFrame = ({fill, darkMode}) => {
+const IndiceFrame = ({fill, darkModei}) => {
+    const darkMode = false;
     return (
         <div className={`w-[20px] h-[20px] rounded-md ${darkMode && "bg-bg-variant" || ("bg-white border-solid border-black border-[1px]")} overflow-hidden`}>
             <div style={{width: `${fill}%`}} className={`h-full ${darkMode && "bg-primary" || "bg-black"}`}></div>
