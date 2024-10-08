@@ -10,6 +10,35 @@ import qrCode from "../(assets)/qr.jpeg";
 
 function CV() {
     const [darkMode, setDarkMode] = useState(false);
+    const stack = [
+        {
+            tech: "PHP",
+            experiences: "Développement d'application web (sites dynamique, web services/APIs), Développement d'extension Wordpress, Programmation orienté objet",
+            framework: "Symfony"
+        },
+        {
+            tech: "JavaScript (full-stack)",
+            experiences: "Intégration de services backend Développement d'interfaces utilisateurs optimisé, Développement web app (web services/APIs, sites SPA)",
+            framework: "React JS, Next JS, Node JS"
+        },
+        {
+            tech: "WordPress",
+            experiences: "Création de site vitrine, e-commerce, blog. Maîtrise d'Elementor, Woocommerce. Optimisation SEO et performance"
+        },
+        {
+            tech: "HTML/CSS",
+            experiences: "Développement de pages web, Responsive design, Intégration de maquettes, Animations CSS3, Intégration JavaScript/CSS",
+            framework: "Tailwind CSS"
+        },
+        {
+            tech: "Sécurité",
+            experiences: "Gestion de l'authentification et des autorisation avec implémentation d'authentification sécurisée (OAuth, JWT) pour des applications web",
+        },
+        {
+            tech: "Base de données",
+            experiences: "Ecriture de shema de base de données (SQL), Requête SQL, Gestion de base de données MYSQL, Gesion de base de données avec prisma",
+        },
+    ]
     const handleTheme = () => {
         setDarkMode(!darkMode);
     }
@@ -51,8 +80,19 @@ function CV() {
             title: "BileMo",
             url: "github.com/Teko13/BileMo/"
         },
+        {
+            title: "MetaPress - Hôpital",
+            url: "https://teko13.github.io/sante/"
+        },
+        {
+            title: "AIGenius",
+            url: "github.com/Teko13/AIGenius"
+        },
+        {
+            title: "ToDo & Co",
+            url: "github.com/Teko13/ToDoAndCo"
+        }
     ]
-    const skills = ["PHP", "JavaScript", "HTML/CSS", "Tailwind", "React JS", "Next JS", "Node JS", "SQL", "MySQL", "Symfony", "WordPress", "Git"];
     const links = [
         {
             icon: <FaGithub />,
@@ -158,23 +198,78 @@ function CV() {
                     </span>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-2 my-[3rem] gap-3">
+            <div className="w-full grid grid-cols-[65%_33.5%] my-[0.3rem] gap-3">
                 <div className={`${darkMode && "border-primary" || "border-black"} border-solid border-[2px]  flex flex-col p-2 justify-start`}>
-                    <h2 className="text-white font-black text-[1.4rem] my-1">
+                    <h2 className="text-white font-black text-[1.2rem] my-1">
                         COMPÉTENCES
                     </h2>
-                    <div className="w-full grid gap-2 grid-cols-3 grid-rows-auto h-full pb-2">
+                    <div className="w-full flex flex-col gap-0">
                         {
-                            skills.map((skill, key) => (
-                                <div key={key} className={`${darkMode && "bg-primary" || "bg-transparent"} rounded-md flex items-center justify-center text-bg-variant font-black`}>
-                                    {skill}
+                            stack.map((skill, key) => (
+                                <div className="flex flex-col gap-0">
+                                    <h3 className={`font-black text-[0.8rem] ${darkMode && "text-primary" || "text-black"}`}>
+                                        {skill.tech}
+                                    </h3>
+                                    <div className='text-[0.7rem] font-black '>
+                                        {skill.experiences}
+                                    </div>
+                                    {skill.framework !== undefined && (
+                                        <div className="flex items-center gap-4 text-[0.6rem] ">
+                                        <span className='text-[0.7rem] font-black'>Framework</span>
+                                        <span>
+                                            {skill.framework}
+                                        </span>
+                                    </div> 
+                                    )}
                                 </div>
                             ))
                         }
                     </div>
                 </div>
                 <div className={`w-full ${darkMode && "border-primary" || "border-black"} p-2 border-solid border-[2px]`}>
-                    <h2 className="text-white font-black text-[1.4rem] my-1">
+                    <h2 className="font-black text-[1.2rem] ">
+                        Quelques Projets
+                    </h2>
+                    {
+                        projet.map((item, key) => (
+                            <div key={key} className="flex flex-col gap-3 m-0 p-0">
+                                <h5 className="text-sm font-black">
+                                    {item.title}
+                                </h5>
+                                <div className={`${darkMode && "text-primary" || "text-black"} flex-nowrap text-nowrap`}>
+                                    {item.url}
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+            <div className="w-full grid grid-cols-2 gap-3">
+                <div className={`${darkMode && ("border-primary") || "border-black"} border-solid gap-3 border-[2px]  flex flex-col p-2 justify-start pb-5`}>
+                    <h3 className='font-black text-[1.2rem]'>
+                        Évaluation de Compétences
+                    </h3>
+                    {
+                        levels.map((item, key) => (
+                            <div className="flex flex-col gap-1 items-start">
+                                <h3 className="font-black text-md">
+                                    {item.title}
+                                </h3>
+                                <div className="flex gap-3 items-center">
+                                    {
+                                        item.level.map((fram, key) => (
+                                            <div>
+                                                {fram}
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div className={`${darkMode && "border-primary" || "border-black"} border-solid gap-1 border-[2px]  flex flex-col p-2`}>
+                    <h2 className="text-white font-black text-[1.2rem] my-1">
                         FORMATIONS
                     </h2>
                     <div className="flex flex-col gap-4">
@@ -202,49 +297,7 @@ function CV() {
                     </div>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-2 my-[3rem] gap-3">
-                <div className={`${darkMode && ("border-primary") || "border-black"} border-solid gap-3 border-[2px]  flex flex-col p-2 justify-start pb-5`}>
-                    <h3 className='font-black text-[1.4rem]'>
-                        Évaluation de Compétences
-                    </h3>
-                    {
-                        levels.map((item, key) => (
-                            <div className="flex flex-col gap-1 items-start">
-                                <h3 className="font-black text-md">
-                                    {item.title}
-                                </h3>
-                                <div className="flex gap-3 items-center">
-                                    {
-                                        item.level.map((fram, key) => (
-                                            <div>
-                                                {fram}
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-                <div className={`${darkMode && "border-primary" || "border-black"} border-solid gap-1 border-[2px]  flex flex-col p-2`}>
-                    <h2 className="font-black text-[1.4rem] ">
-                        Quelques Projets
-                    </h2>
-                    {
-                        projet.map((item, key) => (
-                            <div key={key} className="flex flex-col gap-0 m-0 p-0">
-                                <h5 className="text-sm font-black">
-                                    {item.title}
-                                </h5>
-                                <div className={`${darkMode && "text-primary" || "text-black"} flex-nowrap text-nowrap`}>
-                                    {item.url}
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-            </div>
-            <div className={`${darkMode && "border-primary" || "border-black"} w-full border-solid border-[2px]  flex p-4 gap-3`}>
+            {/* <div className={`${darkMode && "border-primary" || "border-black"} w-full border-solid border-[2px]  flex p-4 gap-3`}>
                 <h3 className="tet-md font-black">
                     Loisirs
                 </h3>
@@ -257,7 +310,7 @@ function CV() {
                         ))
                     }
                 </div>
-            </div>
+            </div> */}
         </div>
   )
 }
