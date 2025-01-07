@@ -55,7 +55,7 @@ const Competences = () => {
             "Ecriture de shema de base de données (SQL)",
             "Requête SQL",
             "Gestion de base de données MYSQL",
-            "Gesion de base de données avec prisma"
+            "Gestion de base de données avec prisma"
         ]
     }
 ]
