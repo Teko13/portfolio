@@ -1,15 +1,11 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { FaWhatsapp, FaLinkedin, FaGithub } from "react-icons/fa";
-import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import { FiMail, FiPhone } from "react-icons/fi";
 import { SiGmail } from "react-icons/si";
-import ME_IMG from "../../(assets)/me.jpg";
-import ISO_1 from "../../(assets)/iso.jpeg";
-import ISO_2 from "../../(assets)/iso1.jpeg";
-import ISO_3 from "../../(assets)/iso2.jpeg";
 
+// Memoized components and constants
 const socialLinks = [
   {
     icon: <SiGmail className="text-2xl" />,
@@ -52,7 +48,7 @@ const contactInfo = [
   }
 ];
 
-const BentoCard = ({ children, className = "", delay = 0 }) => (
+const BentoCard = React.memo(({ children, className = "", delay = 0 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -61,17 +57,55 @@ const BentoCard = ({ children, className = "", delay = 0 }) => (
   >
     {children}
   </motion.div>
-);
+));
+
+BentoCard.displayName = 'BentoCard';
+
+const SocialLink = React.memo(({ href, icon, label, color }) => (
+  <motion.a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`p-3 rounded-full bg-bg-variant/30 backdrop-blur-sm border border-primary/10 transition-all duration-300 ${color}`}
+    whileHover={{ y: -5 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    {icon}
+    <span className="sr-only">{label}</span>
+  </motion.a>
+));
+
+SocialLink.displayName = 'SocialLink';
+
+const ContactLink = React.memo(({ href, icon, label, value }) => (
+  <motion.a
+    href={href}
+    className="flex items-center gap-3 p-3 rounded-lg bg-bg-variant/30 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all duration-300"
+    whileHover={{ x: 5 }}
+  >
+    {icon}
+    <div>
+      <div className="text-sm text-text-secondary">{label}</div>
+      <div className="text-text-primary">{value}</div>
+    </div>
+  </motion.a>
+));
+
+ContactLink.displayName = 'ContactLink';
 
 const Footer = () => {
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://static-bundles.visme.co/forms/vismeforms-embed.js";
     script.async = true;
+    script.defer = true;
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      const existingScript = document.querySelector('script[src="https://static-bundles.visme.co/forms/vismeforms-embed.js"]');
+      if (existingScript) {
+        document.body.removeChild(existingScript);
+      }
     };
   }, []);
 
@@ -88,18 +122,7 @@ const Footer = () => {
                 <p className="text-text-secondary mb-6">Développeur Web Full Stack</p>
                 <div className="flex justify-center gap-4">
                   {socialLinks.map((link, index) => (
-                    <motion.a
-                      key={index}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`p-3 rounded-full bg-bg-variant/30 backdrop-blur-sm border border-primary/10 transition-all duration-300 ${link.color}`}
-                      whileHover={{ y: -5 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {link.icon}
-                      <span className="sr-only">{link.label}</span>
-                    </motion.a>
+                    <SocialLink key={index} {...link} />
                   ))}
                 </div>
               </div>
@@ -110,18 +133,7 @@ const Footer = () => {
               <h3 className="text-xl font-semibold mb-4 text-gradient">Contact</h3>
               <div className="space-y-4">
                 {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={index}
-                    href={info.href}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-bg-variant/30 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all duration-300"
-                    whileHover={{ x: 5 }}
-                  >
-                    {info.icon}
-                    <div>
-                      <div className="text-sm text-text-secondary">{info.label}</div>
-                      <div className="text-text-primary">{info.value}</div>
-                    </div>
-                  </motion.a>
+                  <ContactLink key={index} {...info} />
                 ))}
               </div>
             </BentoCard>
@@ -146,4 +158,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);
