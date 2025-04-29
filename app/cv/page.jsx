@@ -9,7 +9,7 @@ import { Righteous } from 'next/font/google';
 import qrCode from "../(assets)/qr.jpeg";
 
 function CV() {
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(true);
     const stack = [
         {
             tech: "PHP",
@@ -193,9 +193,9 @@ function CV() {
                 </div>
                 <div className="w-[80%] flex flex-col items-center">
                     <img src={qrCode.src} alt="QR code de mon portflio" />
-                    <span className=' text-primary text-nowrap flex-nowrap text-[0.8rem] '>
+                    <a href='https://teko-fabrice.vercel.app/' className=' underline text-primary text-nowrap flex-nowrap text-[0.8rem] '>
                         https://teko-fabrice.vercel.app/
-                    </span>
+                    </a>
                 </div>
             </div>
             <div className="w-full grid grid-cols-[65%_33.5%] my-[0.3rem] gap-3">
@@ -207,10 +207,10 @@ function CV() {
                         {
                             stack.map((skill, key) => (
                                 <div className="flex flex-col gap-0">
-                                    <h3 className={`font-black text-[0.8rem] ${darkMode && "text-primary" || "text-black"}`}>
+                                    <h3 className={`font-black text-[0.9rem] ${darkMode && "text-primary" || "text-black"}`}>
                                         {skill.tech}
                                     </h3>
-                                    <div className='text-[0.7rem] font-black '>
+                                    <div className='text-[0.89rem] '>
                                         {skill.experiences}
                                     </div>
                                     {skill.framework !== undefined && (
@@ -230,65 +230,43 @@ function CV() {
                     <h2 className="font-black text-[1.2rem] ">
                         Quelques Projets
                     </h2>
-                    {
-                        projet.map((item, key) => (
-                            <div key={key} className="flex flex-col gap-3 m-0 p-0">
-                                <h5 className="text-sm font-black">
-                                    {item.title}
-                                </h5>
-                                <div className={`${darkMode && "text-primary" || "text-black"} flex-nowrap text-nowrap`}>
-                                    {item.url}
+                    <div className="flex h-[100%] flex-col justify-around">
+                        {
+                            projet.map((item, key) => (
+                                <div key={key} className="flex flex-col m-0 p-0">
+                                    <h5 className="text-sm font-black">
+                                        {item.title}
+                                    </h5>
+                                    <a href={item.url} className={`${darkMode && "text-primary" || "text-black"} flex-nowrap text-nowrap text-[0.8rem] underline  `}>
+                                        {item.url}
+                                    </a>
                                 </div>
-                            </div>
-                        ))
-                    }
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-2 gap-3">
-                <div className={`${darkMode && ("border-primary") || "border-black"} border-solid gap-3 border-[2px]  flex flex-col p-2 justify-start pb-5`}>
-                    <h3 className='font-black text-[1.2rem]'>
-                        Évaluation de Compétences
-                    </h3>
-                    {
-                        levels.map((item, key) => (
-                            <div className="flex flex-col gap-1 items-start">
-                                <h3 className="font-black text-md">
-                                    {item.title}
-                                </h3>
-                                <div className="flex gap-3 items-center">
-                                    {
-                                        item.level.map((fram, key) => (
-                                            <div>
-                                                {fram}
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
                 <div className={`${darkMode && "border-primary" || "border-black"} border-solid gap-1 border-[2px]  flex flex-col p-2`}>
-                    <h2 className="text-white font-black text-[1.2rem] my-1">
+                    <h2 className="text-white font-black text-[1rem]">
                         FORMATIONS
                     </h2>
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2 items-center">
                         {
                             education.map((item, key) => (
-                                <div className="flex items-stretch gap-4 rounded-md overflow-hidden relative">
-                                    <div className={`w-[5px] ${darkMode && "bg-primary" || "bg-black"}`}></div>
+                                <div className="flex items-stretch gap-1 rounded-md overflow-hidden relative">
                                     <div className='flex flex-col gap-1 justify-start items-center'>
                                         <div className="flex items-center gap-3">
                                             <div className="">
                                                 <FaGraduationCap className={`${darkMode && "text-primary" || "text-black"}`} />
                                             </div>
-                                            <div className='text-[0.9rem] font-black '> {item.title} </div>
+                                            <div className='text-[0.8rem] font-black '> {item.title}</div>
+                                            <div>-</div>
+                                            <div className='text-[0.6]'>
+                                                {item.date}
+                                            </div>
                                         </div>
-                                        <div className='text-[0.7]'>
+                                        <div className='text-[0.5]'>
                                             {item.school}
-                                        </div>
-                                        <div className='text-[0.6]'>
-                                            {item.date}
                                         </div>
                                     </div>
                                 </div>
@@ -296,7 +274,6 @@ function CV() {
                         }
                     </div>
                 </div>
-            </div>
             {/* <div className={`${darkMode && "border-primary" || "border-black"} w-full border-solid border-[2px]  flex p-4 gap-3`}>
                 <h3 className="tet-md font-black">
                     Loisirs
