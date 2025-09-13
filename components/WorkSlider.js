@@ -133,12 +133,12 @@ const WorkSlider = ({ projets = [] }) => {
           pauseOnMouseEnter: true,
         } : false}
         modules={[Pagination, Autoplay]}
-        className='h-[280px] md:h-[400px]'
+        className='h-[350px] md:h-[450px]'
       >
         {slides.map((slide, index) => {
           return (
             <SwiperSlide key={index}>
-              <div className={`grid gap-4 cursor-pointer h-[280px] md:h-[360px] ${
+              <div className={`grid gap-4 cursor-pointer h-[350px] md:h-[410px] ${
                 isMobile 
                   ? 'grid-cols-1 grid-rows-2' 
                   : 'grid-cols-2 grid-rows-2'
