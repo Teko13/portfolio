@@ -13,7 +13,13 @@ import Nav from './Nav';
 import Header from './Header';
 import TopLeftImg from './TopLeftImg';
 
+// hooks
+import { useSwipeNavigation } from '../hooks/useSwipeNavigation';
+
 const Layout = ({ children }) => {
+  // Activer la navigation par swipe/scroll
+  useSwipeNavigation();
+
   return (
     <div
       className={`page bg-site text-white bg-cover bg-no-repeat ${sora.variable} font-sora relative`}
