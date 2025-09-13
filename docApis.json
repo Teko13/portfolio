@@ -1,0 +1,212 @@
+{
+  "apis": [
+    {
+      "endpoint": "https://teko-portfolio-cms.vercel.app/api/portfolio/moi",
+      "method": "GET",
+      "authentication": "Non requise (lecture publique)",
+      "description": "Récupère les informations personnelles (nom, prénom, email, téléphone, date de naissance, titre, photo, description, résumé, CV)",
+      "response_structure": {
+        "success": "boolean",
+        "data": {
+          "id": "number",
+          "nom": "string",
+          "prenom": "string",
+          "email": "string",
+          "telephone": "string",
+          "date_naissance": "string (ISO date)",
+          "titre": "string",
+          "ma_photo_url": "string (URL)",
+          "resume": "string",
+          "cv_url": "string (URL)"
+        }
+      },
+      "example_response": {
+        "success": true,
+        "data": {
+          "id": 1,
+          "nom": "Folly",
+          "prenom": "Fabrice",
+          "email": "teko.fabrice@gmail.com",
+          "telephone": "+33 7 45 17 88 05",
+          "date_naissance": "2000-05-17T00:00:00.000Z",
+          "titre": "Développeur Web et Mobile web full-stack",
+          "ma_photo_url": "https://example.com/photo.jpg",
+          "resume": "Résumé professionnel...",
+          "cv_url": "https://example.com/cv.pdf"
+        }
+      }
+    },
+    {
+      "endpoint": "https://teko-portfolio-cms.vercel.app/api/portfolio/competences",
+      "method": "GET",
+      "authentication": "Non requise (lecture publique)",
+      "description": "Récupère la liste des compétences techniques avec leur titre et description",
+      "response_structure": {
+        "success": "boolean",
+        "data": [
+          {
+            "id": "number",
+            "titre": "string",
+            "description": "string"
+          }
+        ]
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "titre": "React",
+            "description": "Framework JavaScript pour le développement d'interfaces utilisateur."
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "https://teko-portfolio-cms.vercel.app/api/portfolio/projets",
+      "method": "GET",
+      "authentication": "Non requise (lecture publique)",
+      "description": "Récupère la liste des projets avec leurs détails, images et liens",
+      "response_structure": {
+        "success": "boolean",
+        "data": [
+          {
+            "id": "number",
+            "titre": "string",
+            "description": "string",
+            "image_url": "string (URL)",
+            "acces_url": "string (URL)",
+            "source_url": "string (URL)",
+            "category": "string",
+            "index": "number",
+            "cree_le": "string (ISO date)"
+          }
+        ]
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "titre": "Portfolio CMS",
+            "description": "Application de gestion de portfolio...",
+            "image_url": "https://example.com/image.jpg",
+            "acces_url": "https://example.com",
+            "source_url": "https://github.com/example",
+            "category": "Web",
+            "index": 1,
+            "cree_le": "2024-01-01T00:00:00.000Z"
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "https://teko-portfolio-cms.vercel.app/api/portfolio/parcours",
+      "method": "GET",
+      "authentication": "Non requise (lecture publique)",
+      "description": "Récupère le parcours éducatif avec diplômes et certifications",
+      "response_structure": {
+        "success": "boolean",
+        "data": [
+          {
+            "id": "number",
+            "obtenu_en": "string (ISO date)",
+            "titre": "string",
+            "ecole": "string",
+            "diplome_pdf_url": "string (URL)"
+          }
+        ]
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "obtenu_en": "2020-01-01T00:00:00.000Z",
+            "titre": "Master en Informatique",
+            "ecole": "Université Example",
+            "diplome_pdf_url": "https://example.com/diplome.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "https://teko-portfolio-cms.vercel.app/api/portfolio/loisirs",
+      "method": "GET",
+      "authentication": "Non requise (lecture publique)",
+      "description": "Récupère la description des loisirs et centres d'intérêt",
+      "response_structure": {
+        "success": "boolean",
+        "data": [
+          {
+            "id": "number",
+            "description": "string"
+          }
+        ]
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "description": "Photographie, lecture, sport"
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "https://teko-portfolio-cms.vercel.app/api/portfolio/reseau",
+      "method": "GET",
+      "authentication": "Non requise (lecture publique)",
+      "description": "Récupère les liens vers les réseaux sociaux et professionnels",
+      "response_structure": {
+        "success": "boolean",
+        "data": [
+          {
+            "id": "number",
+            "nom": "string",
+            "url": "string (URL)",
+            "icon_url": "string (URL)"
+          }
+        ]
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "nom": "GitHub",
+            "url": "https://github.com/example",
+            "icon_url": "https://example.com/icon.svg"
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "https://teko-portfolio-cms.vercel.app/api/portfolio/galerie",
+      "method": "GET",
+      "authentication": "Non requise (lecture publique)",
+      "description": "Récupère la galerie d'images personnelles",
+      "response_structure": {
+        "success": "boolean",
+        "data": [
+          {
+            "id": "number",
+            "photo_url": "string (URL)",
+            "titre": "string"
+          }
+        ]
+      },
+      "example_response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "photo_url": "https://example.com/photo.jpg",
+            "titre": "Photo de voyage"
+          }
+        ]
+      }
+    }
+  ]
+}
