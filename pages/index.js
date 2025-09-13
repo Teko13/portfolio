@@ -97,7 +97,7 @@ const Home = () => {
               exit='hidden'
               className='max-w-sm xl:max-w-xl mx-auto xl:mx-0 mb-10 xl:mb-16'
             >
-            {personalInfo?.resume || 'Développeur passionné créant des expériences numériques innovantes. Spécialisé dans le développement web et mobile avec une approche moderne et performante.'}
+            Développeur web et mobile, je conçois des projets complets avec des solutions claires et performantes. En quête constante de nouvelles technologies pour optimiser l'expérience utilisateur.
           </motion.p>
           {/* btn */}
           <div className='flex justify-center xl:hidden relative'>
@@ -127,7 +127,7 @@ const Home = () => {
           animate='show'
           exit='hidden'
           transition={{ duration: 1, ease: 'easeInOut' }}
-          className='w-full h-full max-w-[737px] max-h-[678px] absolute -bottom-32 lg:bottom-0 lg:right-[8%]'
+          className='w-full h-full max-w-[600px] max-h-[550px] absolute -bottom-32 lg:bottom-0 lg:right-[8%]'
         >
           <Avatar profilePhoto={profilePhoto} />
         </motion.div>
