@@ -9,7 +9,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
 // import required modules
-import { FreeMode, Pagination } from 'swiper';
+import { FreeMode, Pagination, Autoplay } from 'swiper';
 
 // components
 import Bulb from '../../components/Bulb';
@@ -152,12 +152,12 @@ const Competences = () => {
   }
 
   return (
-    <div className='h-full bg-primary/30 py-4 md:py-36 flex items-center'>
+    <div className='h-full bg-primary/30 py-12 md:py-36 flex items-start md:items-center'>
       <Circles />
-      <div className='container mx-auto pt-2 md:pt-0'>
+      <div className='container mx-auto pt-8 md:pt-0'>
         <div className='flex flex-col xl:flex-row gap-x-8'>
           {/* text */}
-          <div className='text-center flex xl:w-[30vw] flex-col lg:text-left mb-2 md:mb-4 xl:mb-0'>
+          <div className='text-center flex xl:w-[30vw] flex-col lg:text-left mb-6 md:mb-4 xl:mb-0'>
             <motion.h2
               variants={fadeIn('up', 0.2)}
               initial='hidden'
@@ -172,7 +172,7 @@ const Competences = () => {
               initial='hidden'
               animate='show'
               exit='hidden'
-              className='mb-2 md:mb-4 max-w-[400px] mx-auto lg:mx-0'
+              className='mb-6 md:mb-4 max-w-[400px] mx-auto lg:mx-0'
             >
               Découvrez mon expertise technique et mes compétences en détail.
             </motion.p>
@@ -201,11 +201,15 @@ const Competences = () => {
               pagination={{
                 clickable: true,
               }}
-              modules={[FreeMode, Pagination]}
-              className='h-[240px] sm:h-[340px]'
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              modules={[FreeMode, Pagination, Autoplay]}
+              className='h-auto sm:h-[340px]'
             >
               {competences.map((competence, index) => {
-                const isLongText = competence.description.length > 80;
                 return (
                   <SwiperSlide key={competence.id}>
                     <div className='bg-[rgba(65,47,123,0.15)] h-max rounded-lg px-6 py-8 flex flex-col gap-y-4 group cursor-pointer hover:bg-[rgba(89,65,169,0.15)] transition-all duration-300 overflow-hidden items-center'>
@@ -216,11 +220,11 @@ const Competences = () => {
                       {/* title & desc */}
                       <div className='flex-1 text-center'>
                         <div className='mb-2 text-lg'>{competence.titre}</div>
-                        <p className='max-w-[350px] leading-normal transition-all duration-300 group-hover:max-w-none'>
-                          <span className='group-hover:hidden'>
-                            {truncateText(competence.description, 80)}
+                        <p className='max-w-[350px] leading-normal md:transition-all md:duration-300 md:group-hover:max-w-none'>
+                          <span className='md:group-hover:hidden'>
+                            {competence.description}
                           </span>
-                          <span className='hidden group-hover:inline'>
+                          <span className='hidden md:group-hover:inline'>
                             {competence.description}
                           </span>
                         </p>
