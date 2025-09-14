@@ -104,20 +104,30 @@ const WorkSlider = ({ projets = [] }) => {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      console.log(`Screen size check: ${window.innerWidth}px, isMobile: ${mobile}`);
+      setIsMobile(mobile);
     };
     
+    // Vérifier immédiatement
     checkScreenSize();
+    
+    // Ajouter un délai pour s'assurer que le DOM est prêt
+    const timeoutId = setTimeout(checkScreenSize, 100);
+    
     window.addEventListener('resize', checkScreenSize);
     
-    return () => window.removeEventListener('resize', checkScreenSize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
 
   // Choisir la fonction d'organisation selon la taille d'écran
   const slides = isMobile ? organizeProjectsForMobile(projets) : organizeProjectsForDesktop(projets);
 
   // Debug: afficher le nombre de slides
-  console.log(`Nombre de slides: ${slides.length}, isMobile: ${isMobile}`);
+  console.log(`Nombre de slides: ${slides.length}, isMobile: ${isMobile}, projets: ${projets.length}`);
 
   return (
     <div className='w-full'>
@@ -127,11 +137,11 @@ const WorkSlider = ({ projets = [] }) => {
           clickable: true,
           dynamicBullets: true,
         }}
-        autoplay={slides.length > 1 ? {
+        autoplay={{
           delay: 5000,
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
-        } : false}
+        }}
         modules={[Pagination, Autoplay]}
         className='h-[350px] md:h-[450px]'
       >
