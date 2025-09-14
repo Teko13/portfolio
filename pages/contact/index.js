@@ -79,7 +79,7 @@ const Contact = () => {
   return (
     <div className='h-full bg-primary/30'>
       <Circles />
-      <div className='container mx-auto py-2 md:py-32 text-center xl:text-left flex items-center justify-center h-full'>
+      <div className='container mx-auto py-0 md:py-32 text-center xl:text-left flex items-start md:items-center justify-center h-full pt-4 md:pt-0'>
         <div className='flex flex-col w-full max-w-[700px]'>
           {/* title */}
           <motion.h2

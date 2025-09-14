@@ -67,15 +67,15 @@ const useSwipeNavigation = () => {
     // Éviter les swipes trop rapides (debounce)
     if (now - lastScrollTime.current < 1000) return;
     
-    // Swipe vers le haut (page précédente)
+    // Swipe vers le haut (page suivante)
     if (diff > 100) {
       lastScrollTime.current = now;
-      goToPreviousPage();
+      goToNextPage();
     }
-    // Swipe vers le bas (page suivante)
+    // Swipe vers le bas (page précédente)
     else if (diff < -100) {
       lastScrollTime.current = now;
-      goToNextPage();
+      goToPreviousPage();
     }
     
     // Reset
