@@ -121,17 +121,18 @@ const WorkSlider = ({ projets = [] }) => {
   return (
     <div className='w-full'>
       {isMobile ? (
-        // Mode mobile : liste verticale scrollable
-        <div className='h-[400px] overflow-y-auto space-y-4 pr-2'>
-          {mobileProjects.map((project) => {
-            const isSelected = selectedProject === project.id;
-            
-            return (
-              <div
-                key={project.id}
-                className='relative rounded-lg overflow-hidden group w-full h-[200px] cursor-pointer'
-                onClick={() => handleProjectClick(project.id)}
-              >
+        // Mode mobile : liste horizontale scrollable
+        <div className='h-[250px] overflow-x-auto overflow-y-hidden'>
+          <div className='flex space-x-4 pb-2' style={{ width: 'max-content' }}>
+            {mobileProjects.map((project) => {
+              const isSelected = selectedProject === project.id;
+              
+              return (
+                <div
+                  key={project.id}
+                  className='relative rounded-lg overflow-hidden group w-[200px] h-[200px] cursor-pointer flex-shrink-0'
+                  onClick={() => handleProjectClick(project.id)}
+                >
                 <div className='relative w-full h-full overflow-hidden'>
                   {/* image */}
                   <Image 
@@ -189,9 +190,10 @@ const WorkSlider = ({ projets = [] }) => {
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       ) : (
         // Mode desktop : carousel Swiper
