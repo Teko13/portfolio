@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body>
+    <header data-aos="fade-down"
+    data-aos-easing="linear"
+    data-aos-duration="1500">
+        <div class="logo" id="logo-name"></div>
+        <button class="contact-btn">Contact</button>
+    </header>
+
+    <main>
+        <div class="title-section" data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="1500">
+            <h1 id="hero-title"></h1>
+            <h2 id="hero-title-mobile"></h2>
+        </div>
+
+        <div class="bio-section" data-aos="fade-up"
+        data-aos-duration="1500">
+            <p class="bio">                
+                DÉVELOPPEUR <span style="color: #76b0ab;"> WEB ET MOBILE </span>, JE CONÇOIS DES PROJETS COMPLETS
+                AVEC DES SOLUTIONS MODERNES ET PERFORMANTES.
+                EN <span style="color: #842626;"> QUÊTE CONSTANTE </span> DE NOUVELLES TECHNOLOGIES
+                POUR OPTIMISER L'EXPÉRIENCE UTILISATEUR.
+            </p>
+        </div>
+
+        <div class="scroll-down" data-aos="fade-up"
+        data-aos-duration="1500"></div>
+
+        <spline-viewer data-aos="fade-zoom-in"
+            data-aos-easing="ease-in-back"
+            data-aos-delay="300"
+            data-aos-offset="0" data-aos-duration="3000" class="planet-3D"  url="https://prod.spline.design/5GeQ7R7lsgyNBbCH/scene.splinecode">
+        </spline-viewer>
+
+    </main>
+
+    <section class="about-section">
+        <h1 class="about-title" data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="1500">À propos de moi</h1>
+
+        <div class="bento-grid">
+            <div class="card intro" data-aos="fade-right"
+            data-aos-offset="300"
+            data-aos-easing="ease-in-sine" data-aos-duration="1500">
+                <h2 class="card-title" id="about-title">Qui suis-je</h2>
+                <p class="card-text" id="about-resume">
+                    Chargement...
+                </p>
+
+                <img src="images/gradient1.png" alt="" class="background-img">
+
+                <div class="model-box">
+                    <img id="about-photo" src="" alt="Photo de profil" class="about-photo-img">
+                    <spline-viewer class="info-3D" id="spline-viewer-about" url="https://prod.spline.design/qiGD3Sq6465bil4K/scene.splinecode"></spline-viewer>
+                </div>
+            </div>
+
+            <div class="card tech" data-aos="fade-left"
+            data-aos-offset="300"
+            data-aos-easing="ease-in-sine" data-aos-duration="1500">
+                <h2 class="card-title">Expertise</h2>
+                <div class="card-text">
+                    <div class="competence-item">
+                        <h3 class="competence-title">Développement web</h3>
+                        <p class="competence-description">Conception et développement de solutions web sur mesure.</p>
+                    </div>
+                    <div class="competence-item">
+                        <h3 class="competence-title">Application Mobile</h3>
+                        <p class="competence-description">Développement d'applications mobiles cross-platform pour iOS et Android.</p>
+                    </div>
+                </div>
+
+                <img src="images/gradient 2.png" alt="" class="background-img">
+                <img src="images/skills group.png" alt="" class="skills-group">
+            </div>
+
+            <div class="card time" data-aos="fade-up"
+            data-aos-duration="1500">
+                <h2 class="card-title">MES PARCOURS FORMATIONS</h2>
+
+                <div class="card-text" id="parcours-list">
+                    Chargement...
+                </div>
+
+                <img src="images/gradient3&4.png" alt="" class="background-img">
+            </div>
+
+            <div class="card passion" data-aos="fade-up"
+            data-aos-duration="1500">
+                <h2 class="card-title">VOIR MON CV</h2>
+                <p class="card-text" id="cv-text">
+                    Obtenez facilement mon cv
+                </p>
+
+                <a href="" id="cv-download-btn" target="_blank" class="btn cv-btn" style="display: none;">
+                    <i class='bx bx-download'></i> Télécharger
+                </a>
+
+                <img src="images/gradient3&4.png" alt="" class="background-img">
+            </div>
+            
+            <h2 class="section-subtitle" id="technos-title" style="display: none;">Mes Technos</h2>
+            <div id="competences-cards-container">
+                <!-- Les cards de compétences seront ajoutées ici dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+
+    <section class="projects-section">
+        <h3 data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="1500"
+        data-aos-offset="-100">Mes Projets</h3>
+
+        <div class="slider" id="projects-slider" style="
+            --width: 60rem;
+            --height: 40rem;
+            --quantity: 0;
+        ">
+
+            <div class="list" id="projects-list">
+                <!-- Les projets seront ajoutés ici dynamiquement -->
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CONTACT SECTION -->
+     <section class="contact-section" >
+        <div class="section-header" data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="1500">
+            <h3>Me Contacter</h3>
+            <p>Un projet, une question, un besoin ? Contactez-moi</p>
+        </div>
+
+        <div class="contact-grid" data-aos="fade-zoom-in"
+        data-aos-easing="ease-in-back"
+        data-aos-delay="300"
+        data-aos-offset="0" data-aos-duration="1500">
+
+            <div class="info-card">
+                <h3>Informations de contact</h3>
+
+                <div class="contact-item">
+                    <p>Email</p>
+                    <a href="#" id="contact-email">Chargement...</a>
+                </div>
+
+                <div class="contact-item">
+                    <p>Téléphone</p>
+                    <a href="#" id="contact-phone">Chargement...</a>
+                </div>
+
+                <div class="social-link">
+                    <p>Réseaux sociaux</p>
+                    <div id="social-links-container">
+                        <!-- Les liens seront ajoutés ici dynamiquement -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+     </section>
+
+     <footer>
+        <h3><a href="https://teko-fabrice.vercel.app/" target="_blank" rel="noopener noreferrer" class="footer-link">@teko-fabrice</a></h3>
+        <div class="box-icons" id="footer-social-links">
+            <!-- Les liens seront ajoutés ici dynamiquement -->
+        </div>
+     </footer>
+
+
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.96/build/spline-viewer.js"></script>
+
+
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.79/build/spline-viewer.js"></script>
+
+
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+    emailjs.init({
+        publicKey: "9c9UABgvXx_XjFIfd",
+    });
+    })();
+    </script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+    // Ajuster l'offset AOS selon la taille d'écran
+    const isMobile = window.innerWidth <= 480;
+    AOS.init({
+        offset: isMobile ? 50 : 100,
+        duration: 1500,
+        easing: 'ease-in-out',
+        once: false
+    });
+    
+    // Ajuster l'offset spécifique pour le titre de la section projets
+    function adjustProjectsTitleOffset() {
+        const projectsTitle = document.querySelector('.projects-section h3');
+        if (projectsTitle) {
+            const isMobileNow = window.innerWidth <= 480;
+            // Sur mobile, ajuster l'offset pour déclencher l'animation au bon moment
+            // avec la nouvelle position de la section (190rem)
+            projectsTitle.setAttribute('data-aos-offset', isMobileNow ? '-300' : '-100');
+            // Rafraîchir AOS pour appliquer le changement
+            AOS.refresh();
+        }
+    }
+    
+    // Ajuster l'offset spécifique pour les animations de la section contact
+    function adjustContactSectionOffset() {
+        const contactHeader = document.querySelector('.contact-section .section-header');
+        const contactGrid = document.querySelector('.contact-section .contact-grid');
+        const isMobileNow = window.innerWidth <= 480;
+        
+        if (contactHeader) {
+            // Sur mobile, ajuster l'offset pour déclencher l'animation au bon moment
+            contactHeader.setAttribute('data-aos-offset', isMobileNow ? '-200' : '-100');
+        }
+        
+        if (contactGrid) {
+            // Sur mobile, ajuster l'offset pour déclencher l'animation au bon moment
+            contactGrid.setAttribute('data-aos-offset', isMobileNow ? '-200' : '0');
+        }
+        
+        if (contactHeader || contactGrid) {
+            AOS.refresh();
+        }
+    }
+    
+    // Ajuster au chargement du DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            adjustProjectsTitleOffset();
+            adjustContactSectionOffset();
+        });
+    } else {
+        adjustProjectsTitleOffset();
+        adjustContactSectionOffset();
+    }
+    
+    // Réajuster si la fenêtre est redimensionnée
+    window.addEventListener('resize', function() {
+        const isMobileNow = window.innerWidth <= 480;
+        AOS.refresh({
+            offset: isMobileNow ? 50 : 100
+        });
+        adjustProjectsTitleOffset();
+        adjustContactSectionOffset();
+        AOS.refresh();
+    });
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
