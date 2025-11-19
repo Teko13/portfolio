@@ -181,14 +181,13 @@ main h2 {
 
 /* ABOUT SECTION */
 .about-section {
-    min-height: 95vh;
     width: 100%;
-    margin-top: 20rem;
-    margin-bottom: 1rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .about-title {
@@ -215,7 +214,6 @@ main h2 {
 .bento-grid {
     position: relative;
     display: grid;
-    min-height: 90vh;
     width: 90%;
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas: 
@@ -223,19 +221,20 @@ main h2 {
         "time passion tech"
     ;
     gap: 1.5rem;
+    align-items: stretch;
 }
 
 #competences-cards-container {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 1.5rem;
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
 
 .competence-card {
-    min-height: 220px;
+    /* Dimensions adaptatives au contenu */
 }
 
 .card {
@@ -247,11 +246,23 @@ main h2 {
                 border-color 0.3s ease,
                 box-shadow 0.3s ease;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
 }
 
 .card.time {
     overflow: visible;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 280px;
+    padding-bottom: 1rem;
+}
+
+.card.passion {
+    height: 100%;
+    max-height: 280px;
     display: flex;
     flex-direction: column;
 }
@@ -266,6 +277,8 @@ main h2 {
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 0.5rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
     min-height: 0;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
@@ -276,10 +289,37 @@ main h2 {
 }
 
 /* CARD SPECIFIC AREAS */
-    .intro { grid-area: intro; min-height: 300px;}
-    .tech {grid-area: tech; min-height: 450px;}
-    .time { grid-area: time; min-height: 220px; max-height: 280px; height: auto;}
-    .passion { grid-area: passion; min-height: 220px;}
+    .intro { grid-area: intro; }
+    .tech {grid-area: tech; }
+    .time { grid-area: time; }
+    .passion { grid-area: passion; }
+
+/* Layout row pour intro sur desktop */
+.card.intro {
+    display: flex;
+    flex-direction: column;
+}
+
+.card.intro .intro-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.card.intro .card-text {
+    flex: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.card.intro .model-box {
+    flex-shrink: 0;
+    width: 60%;
+    max-width: 12rem;
+    margin-top: 0;
+}
 
 
 /* HOVER EFFECTS */
@@ -319,7 +359,6 @@ main h2 {
     line-height: 1.6;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    max-width: 30rem;
 }
 
 .competence-item {
@@ -344,11 +383,15 @@ main h2 {
 }
 
 .parcours-item {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding: 0.5rem 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.parcours-item:last-child {
+    margin-bottom: 0;
 }
 
 .parcours-annee {
@@ -390,52 +433,54 @@ main h2 {
 
 .bento-grid .background-img {
     position: absolute;
-    inset: -1% -1% -1% -1%;
-    width: 110%;
-    height: 110%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     z-index: -1;
+    pointer-events: none;
 }
 
 .model-box {
-    position: absolute;
-    right: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14rem;
-    height: 14rem;
+    position: relative;
+    width: 60%;
+    max-width: 12rem;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 1rem auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .info-3D {
-    width: 150%;
-    height: 150%;
+    width: 100%;
+    height: 100%;
     mix-blend-mode: lighten;
 }
 
 .about-photo-img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     object-position: center top;
     border-radius: 24px;
     display: none;
     position: relative;
     z-index: 10;
-    max-width: 100%;
-    max-height: 100%;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
   
 .bento-grid .skills-group {
-    position: absolute;
-    bottom: 5%;
-    left: 15%;
-    width: 70%;
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+    display: block;
 }
 
 .bento-grid .btn {
-    position: absolute;
-    bottom: 10%;
+    position: relative;
+    margin-top: 1rem;
     padding: 0.75rem 1.5rem;
     background-color: rgba(124, 233, 230, 0.1);
     color: #76b0ab;
@@ -455,8 +500,9 @@ main h2 {
 }
 
 .card.passion .cv-btn {
-    position: absolute;
-    bottom: 10%;
+    position: relative;
+    margin-top: 1rem;
+    display: inline-block;
 }
 
 
@@ -648,8 +694,8 @@ main h2 {
 /* CONTACT SECTION */
 .contact-section {
     padding: 60px 0;
-    margin-top: 20rem;
-    margin-bottom: 10rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
 
 .section-header {
@@ -668,7 +714,6 @@ main h2 {
 
 .section-header p {
     color: lightgray;
-    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -772,7 +817,6 @@ main h2 {
 }
 
 textarea.form-control {
-    min-height: 120px;
     resize: vertical;
 }
 
@@ -870,19 +914,23 @@ footer h3 {
     .bento-grid {
         position: relative;
         display: grid;
-        height: 80vh;
         width: 100%;
         grid-template-columns: auto auto;
         grid-template-areas: 
         "intro  tech"
         "time passion " ;
-    
+        align-items: stretch;
     }
 
-    .intro { grid-area: intro; min-height: 200px; min-width:300px ;}
-    .tech {grid-area: tech; height: 700px; min-width:250px ;}
-    .time { grid-area: time; min-height: 220px; min-width: 250px;}
-    .passion { grid-area: passion; min-height: 220px; min-width: 250px; }
+    .intro { grid-area: intro; }
+    .tech {grid-area: tech; }
+    .time { grid-area: time; }
+    .passion { grid-area: passion; }
+
+    .card.intro .intro-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
     .card-title {
         font-size: 1.2rem;
@@ -895,18 +943,19 @@ footer h3 {
     }
 
     .model-box {
-        right: 10%;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 12rem;
-        height: 12rem;
+        position: relative;
+        width: 50%;
+        max-width: 10rem;
+        height: auto;
+        aspect-ratio: 1;
+        margin: 1rem auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .intro {min-height: 500px;}
-    .time {grid-area: time; min-height: 300px;}
-
     .projects-section {
-        margin-top: 50rem;
+        margin-top: 5rem;
     }
 
     .slider .list .item {
@@ -1001,6 +1050,11 @@ footer h3 {
         padding: 1.5rem;
     }
 
+    .card.intro .intro-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
     .card.intro .card-title {
         width: 100%;
         text-align: center;
@@ -1015,13 +1069,31 @@ footer h3 {
 
     .card.intro .model-box {
         position: relative;
-        width: 11rem;
-        height: 11rem;
+        width: 60%;
+        max-width: 10rem;
+        height: auto;
+        aspect-ratio: 1;
         margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card.time {
+        max-height: none;
+    }
+
+    .card.passion {
+        max-height: none;
+    }
+
+    .card.time #parcours-list {
+        max-height: none;
+        overflow-y: visible;
     }
 
     .projects-section {
-        margin-top: 190rem;
+        margin-top: 5rem;
     }
 
     .projects-section h3 {
@@ -1041,6 +1113,11 @@ footer h3 {
     .slider .list {
         display: flex;
         min-width: calc( 10rem * var(--quantity));
+    }
+
+    #competences-cards-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     /* Ajustements des infos projet pour mobile */
@@ -1089,12 +1166,23 @@ footer h3 {
         margin-top: -20rem;
     }
 
-    .box-icons {
-        display: none;
+    footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2rem 1rem;
     }
 
     footer h3 {
         font-size: 1rem;
+        margin-bottom: 0;
+    }
+
+    .box-icons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
     }
 }
 
@@ -1122,12 +1210,47 @@ footer h3 {
     }
 
     .model-box {
-        right: 2%;
-        top: 27%;
+        position: relative;
+        width: 60%;
+        max-width: 10rem;
+        height: auto;
+        aspect-ratio: 1;
+        margin: 1rem auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card.time {
+        max-height: none;
+    }
+
+    .card.passion {
+        max-height: none;
+    }
+
+    .card.time #parcours-list {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 1rem;
     }
 
     footer h3 {
         font-size: 0.8rem;
+        margin-bottom: 0;
+    }
+
+    .box-icons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
     }
 }
 

@@ -264,6 +264,11 @@ async function fetchPortfolioData() {
                         if (splineViewerElement) {
                             splineViewerElement.style.display = 'none';
                         }
+                        // Supprimer le spinner de la photo si présent
+                        const photoSpinner = aboutPhotoElement.parentElement.querySelector('.spinner-container');
+                        if (photoSpinner) {
+                            photoSpinner.remove();
+                        }
                         console.log('Photo chargée avec succès depuis la galerie:', photoUrl);
                     };
                     
@@ -355,8 +360,6 @@ async function fetchPortfolioData() {
                     competences.forEach((competence, index) => {
                         const competenceCard = document.createElement('div');
                         competenceCard.className = 'card competence-card';
-                        competenceCard.setAttribute('data-aos', 'fade-up');
-                        competenceCard.setAttribute('data-aos-duration', '1500');
                         
                         // Formater la description pour gérer les retours à la ligne
                         const description = competence.description.replace(/\n/g, '<br>');

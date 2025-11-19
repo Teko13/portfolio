@@ -56,32 +56,27 @@
     </main>
 
     <section class="about-section">
-        <h1 class="about-title" data-aos="fade-down"
-        data-aos-easing="linear"
-        data-aos-duration="1500">À propos de moi</h1>
+        <h1 class="about-title">À propos de moi</h1>
 
         <div class="bento-grid">
-            <div class="card intro" data-aos="fade-right"
-            data-aos-offset="300"
-            data-aos-easing="ease-in-sine" data-aos-duration="1500">
+            <div class="card intro">
                 <h2 class="card-title" id="about-title">Qui suis-je</h2>
-                <p class="card-text" id="about-resume">
-                    <div class="spinner-container">
-                        <div class="spinner"></div>
+                <div class="intro-content">
+                    <p class="card-text" id="about-resume">
+                        <div class="spinner-container">
+                            <div class="spinner"></div>
+                        </div>
+                    </p>
+
+                    <div class="model-box">
+                        <img id="about-photo" src="" alt="Photo de profil" class="about-photo-img">
+                        <spline-viewer class="info-3D" id="spline-viewer-about" url="https://prod.spline.design/qiGD3Sq6465bil4K/scene.splinecode"></spline-viewer>
                     </div>
-                </p>
-
-                <img src="images/gradient1.png" alt="" class="background-img">
-
-                <div class="model-box">
-                    <img id="about-photo" src="" alt="Photo de profil" class="about-photo-img">
-                    <spline-viewer class="info-3D" id="spline-viewer-about" url="https://prod.spline.design/qiGD3Sq6465bil4K/scene.splinecode"></spline-viewer>
                 </div>
+                <img src="images/gradient1.png" alt="" class="background-img">
             </div>
 
-            <div class="card tech" data-aos="fade-left"
-            data-aos-offset="300"
-            data-aos-easing="ease-in-sine" data-aos-duration="1500">
+            <div class="card tech">
                 <h2 class="card-title">Expertise</h2>
                 <div class="card-text">
                     <div class="competence-item">
@@ -98,8 +93,7 @@
                 <img src="images/skills group.png" alt="" class="skills-group">
             </div>
 
-            <div class="card time" data-aos="fade-up"
-            data-aos-duration="1500">
+            <div class="card time">
                 <h2 class="card-title">MES PARCOURS FORMATIONS</h2>
 
                 <div class="card-text" id="parcours-list">
@@ -111,8 +105,7 @@
                 <img src="images/gradient3&4.png" alt="" class="background-img">
             </div>
 
-            <div class="card passion" data-aos="fade-up"
-            data-aos-duration="1500">
+            <div class="card passion">
                 <h2 class="card-title">VOIR MON CV</h2>
                 <p class="card-text" id="cv-text">
                     Obtenez facilement mon cv
@@ -159,17 +152,12 @@
 
     <!-- CONTACT SECTION -->
      <section class="contact-section" >
-        <div class="section-header" data-aos="fade-down"
-        data-aos-easing="linear"
-        data-aos-duration="1500">
+        <div class="section-header">
             <h3>Me Contacter</h3>
             <p>Un projet, une question, un besoin ? Contactez-moi</p>
         </div>
 
-        <div class="contact-grid" data-aos="fade-zoom-in"
-        data-aos-easing="ease-in-back"
-        data-aos-delay="300"
-        data-aos-offset="0" data-aos-duration="1500">
+        <div class="contact-grid">
 
             <div class="info-card">
                 <h3>Informations de contact</h3>
@@ -230,7 +218,7 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-    // Ajuster l'offset AOS selon la taille d'écran
+    // Initialiser AOS uniquement pour la section projets
     const isMobile = window.innerWidth <= 480;
     AOS.init({
         offset: isMobile ? 50 : 100,
@@ -244,31 +232,7 @@
         const projectsTitle = document.querySelector('.projects-section h3');
         if (projectsTitle) {
             const isMobileNow = window.innerWidth <= 480;
-            // Sur mobile, ajuster l'offset pour déclencher l'animation au bon moment
-            // avec la nouvelle position de la section (190rem)
             projectsTitle.setAttribute('data-aos-offset', isMobileNow ? '-300' : '-100');
-            // Rafraîchir AOS pour appliquer le changement
-            AOS.refresh();
-        }
-    }
-    
-    // Ajuster l'offset spécifique pour les animations de la section contact
-    function adjustContactSectionOffset() {
-        const contactHeader = document.querySelector('.contact-section .section-header');
-        const contactGrid = document.querySelector('.contact-section .contact-grid');
-        const isMobileNow = window.innerWidth <= 480;
-        
-        if (contactHeader) {
-            // Sur mobile, ajuster l'offset pour déclencher l'animation au bon moment
-            contactHeader.setAttribute('data-aos-offset', isMobileNow ? '-200' : '-100');
-        }
-        
-        if (contactGrid) {
-            // Sur mobile, ajuster l'offset pour déclencher l'animation au bon moment
-            contactGrid.setAttribute('data-aos-offset', isMobileNow ? '-200' : '0');
-        }
-        
-        if (contactHeader || contactGrid) {
             AOS.refresh();
         }
     }
@@ -277,11 +241,9 @@
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             adjustProjectsTitleOffset();
-            adjustContactSectionOffset();
         });
     } else {
         adjustProjectsTitleOffset();
-        adjustContactSectionOffset();
     }
     
     // Réajuster si la fenêtre est redimensionnée
@@ -291,7 +253,6 @@
             offset: isMobileNow ? 50 : 100
         });
         adjustProjectsTitleOffset();
-        adjustContactSectionOffset();
         AOS.refresh();
     });
     </script>
