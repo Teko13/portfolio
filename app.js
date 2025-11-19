@@ -1,10 +1,7 @@
 // Fonction utilitaire pour obtenir l'URL de l'API
-// Utilise le proxy local uniquement en développement (localhost)
+// Utilise directement l'API sans proxy
 function getApiUrl(endpoint) {
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const baseUrl = isLocalhost 
-        ? 'http://localhost:3001/api/portfolio'  // Proxy local pour développement
-        : 'https://teko-portfolio-cms.vercel.app/api/portfolio';  // API directe en production
+    const baseUrl = 'https://teko-portfolio-cms.vercel.app/api/portfolio';
     return `${baseUrl}/${endpoint}`;
 }
 
@@ -189,10 +186,11 @@ async function fetchPortfolioData() {
                 if (data.nom && data.prenom) {
                     // Supprimer les espaces et mettre en majuscules
                     const fullName = (data.prenom + data.nom).replace(/\s+/g, '').toUpperCase();
-                    logoElement.textContent = fullName;
+                    logoElement.innerHTML = fullName; // Utiliser innerHTML pour supprimer le spinner
                     console.log('Logo mis à jour:', fullName);
                 } else {
                     console.warn('Données nom/prénom manquantes:', { nom: data.nom, prenom: data.prenom });
+                    logoElement.innerHTML = 'PORTFOLIO'; // Valeur par défaut
                 }
             } else {
                 console.error('Élément logo-name non trouvé dans le DOM');
@@ -203,10 +201,11 @@ async function fetchPortfolioData() {
             if (heroTitleElement) {
                 if (data.titre) {
                     const title = data.titre.toUpperCase();
-                    heroTitleElement.textContent = title;
+                    heroTitleElement.innerHTML = title; // Utiliser innerHTML pour supprimer le spinner
                     console.log('Titre hero mis à jour:', title);
                 } else {
                     console.warn('Titre manquant dans les données');
+                    heroTitleElement.innerHTML = 'WEB DEVELOPER'; // Valeur par défaut
                 }
             } else {
                 console.error('Élément hero-title non trouvé dans le DOM');
@@ -217,10 +216,11 @@ async function fetchPortfolioData() {
             if (heroTitleMobileElement) {
                 if (data.titre) {
                     const title = data.titre.toUpperCase();
-                    heroTitleMobileElement.textContent = title;
+                    heroTitleMobileElement.innerHTML = title; // Utiliser innerHTML pour supprimer le spinner
                     console.log('Titre hero mobile mis à jour:', title);
                 } else {
                     console.warn('Titre manquant dans les données pour mobile');
+                    heroTitleMobileElement.innerHTML = 'WEB DEVELOPER'; // Valeur par défaut
                 }
             } else {
                 console.error('Élément hero-title-mobile non trouvé dans le DOM');
@@ -237,11 +237,11 @@ async function fetchPortfolioData() {
             const aboutResumeElement = document.getElementById('about-resume');
             if (aboutResumeElement) {
                 if (data.resume) {
-                    aboutResumeElement.textContent = data.resume;
+                    aboutResumeElement.innerHTML = data.resume; // Utiliser innerHTML pour supprimer le spinner
                     console.log('Résumé mis à jour');
                 } else {
                     console.warn('Résumé manquant dans les données');
-                    aboutResumeElement.textContent = 'Aucun résumé disponible.';
+                    aboutResumeElement.innerHTML = 'Aucun résumé disponible.';
                 }
             } else {
                 console.error('Élément about-resume non trouvé dans le DOM');
@@ -386,13 +386,13 @@ async function fetchPortfolioData() {
         console.error('Erreur lors de la récupération des données:', error);
         // Valeurs par défaut en cas d'erreur
         const logoElement = document.getElementById('logo-name');
-        if (logoElement) logoElement.textContent = 'PORTFOLIO';
+        if (logoElement) logoElement.innerHTML = 'PORTFOLIO';
         
         const heroTitleElement = document.getElementById('hero-title');
-        if (heroTitleElement) heroTitleElement.textContent = 'WEB DEVELOPER';
+        if (heroTitleElement) heroTitleElement.innerHTML = 'WEB DEVELOPER';
         
         const heroTitleMobileElement = document.getElementById('hero-title-mobile');
-        if (heroTitleMobileElement) heroTitleMobileElement.textContent = 'WEB DEVELOPER';
+        if (heroTitleMobileElement) heroTitleMobileElement.innerHTML = 'WEB DEVELOPER';
     }
 }
 
@@ -603,14 +603,16 @@ async function loadContactInfo(data) {
         const contactEmail = document.getElementById('contact-email');
         if (contactEmail && data.email) {
             contactEmail.href = `mailto:${data.email}`;
-            contactEmail.textContent = data.email;
+            contactEmail.className = ''; // Supprimer la classe spinner-inline
+            contactEmail.innerHTML = data.email; // Utiliser innerHTML pour supprimer le spinner
         }
         
         // Mettre à jour le téléphone
         const contactPhone = document.getElementById('contact-phone');
         if (contactPhone && data.telephone) {
             contactPhone.href = `tel:${data.telephone.replace(/\s+/g, '')}`;
-            contactPhone.textContent = data.telephone;
+            contactPhone.className = ''; // Supprimer la classe spinner-inline
+            contactPhone.innerHTML = data.telephone; // Utiliser innerHTML pour supprimer le spinner
         }
         
         // Charger les réseaux sociaux dans la section contact
