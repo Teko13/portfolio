@@ -1,747 +1,435 @@
-// Fonction utilitaire pour obtenir l'URL de l'API
-// Utilise directement l'API sans proxy
-function getApiUrl(endpoint) {
-    const baseUrl = 'https://teko-portfolio-cms.vercel.app/api/portfolio';
-    return `${baseUrl}/${endpoint}`;
+// --- 1. THREE.JS GLOBE (GITHUB STYLE) ---
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+// Création d'un globe de points (Particules)
+const geometry = new THREE.BufferGeometry();
+const count = 2000;
+const positions = new Float32Array(count * 3);
+
+for (let i = 0; i < count * 3; i++) {
+    positions[i] = (Math.random() - 0.5) * 10; // Spread aléatoire
 }
 
-// Fonction pour récupérer les parcours de formation
-async function fetchParcours() {
-    try {
-        const parcoursUrl = getApiUrl('parcours');
-        
-        const response = await fetch(parcoursUrl, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-            mode: 'cors'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        if (result.success && result.data) {
-            return result.data;
-        }
-        return [];
-    } catch (error) {
-        console.error('Erreur lors de la récupération des parcours:', error);
-        return [];
-    }
-}
+geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-// Fonction pour récupérer les compétences
-async function fetchCompetences() {
-    try {
-        const competencesUrl = getApiUrl('competences');
-        
-        const response = await fetch(competencesUrl, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-            mode: 'cors'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        if (result.success && result.data) {
-            return result.data;
-        }
-        return [];
-    } catch (error) {
-        console.error('Erreur lors de la récupération des compétences:', error);
-        return [];
-    }
-}
+// Matériau "Point bleu"
+const material = new THREE.PointsMaterial({
+    size: 0.03,
+    color: 0x2f81f7,
+    transparent: true,
+    opacity: 0.8
+});
 
-// Fonction pour récupérer la photo depuis la galerie
-async function fetchPhotoFromGalerie() {
-    try {
-        const galerieUrl = getApiUrl('galerie');
-        
-        const response = await fetch(galerieUrl, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-            mode: 'cors'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        if (result.success && result.data) {
-            // Chercher l'image avec le titre "moi_de_face"
-            const photo = result.data.find(item => item.titre === 'moi_de_face');
-            if (photo && photo.photo_url) {
-                return photo.photo_url;
-            }
-        }
-        return null;
-    } catch (error) {
-        console.error('Erreur lors de la récupération de la galerie:', error);
-        return null;
-    }
-}
+// Forme Sphérique plus structurée
+const sphereGeo = new THREE.SphereGeometry(4, 64, 64);
+const sphereMat = new THREE.PointsMaterial({
+    color: 0x58a6ff,
+    size: 0.02,
+    transparent: true,
+    opacity: 0.6
+});
+const globe = new THREE.Points(sphereGeo, sphereMat);
+scene.add(globe);
 
-// Fonction pour récupérer les projets
-async function fetchProjets() {
-    try {
-        const projetsUrl = getApiUrl('projets');
-        
-        const response = await fetch(projetsUrl, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-            mode: 'cors'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        if (result.success && result.data) {
-            // Trier les projets par index
-            return result.data.sort((a, b) => a.index - b.index);
-        }
-        return [];
-    } catch (error) {
-        console.error('Erreur lors de la récupération des projets:', error);
-        return [];
-    }
+// Ajout d'étoiles lointaines (Passion Astronomie)
+const starGeo = new THREE.BufferGeometry();
+const starCount = 1000;
+const starPos = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount * 3; i++) {
+    starPos[i] = (Math.random() - 0.5) * 50;
 }
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, opacity: 0.3 });
+const stars = new THREE.Points(starGeo, starMat);
+scene.add(stars);
 
-// Fonction pour récupérer les réseaux sociaux
-async function fetchReseaux() {
-    try {
-        const reseauxUrl = getApiUrl('reseau');
-        
-        const response = await fetch(reseauxUrl, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-            mode: 'cors'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        if (result.success && result.data) {
-            return result.data;
-        }
-        return [];
-    } catch (error) {
-        console.error('Erreur lors de la récupération des réseaux:', error);
-        return [];
-    }
-}
+camera.position.z = 10;
+globe.position.x = 3; // Décalé à droite comme GitHub
 
-// Fonction pour récupérer les données de l'API
-async function fetchPortfolioData() {
+// Animation Loop
+const animate = () => {
+    requestAnimationFrame(animate);
+    globe.rotation.y += 0.002;
+    globe.rotation.x += 0.001;
+    stars.rotation.y -= 0.0005;
+    renderer.render(scene, camera);
+};
+animate();
+
+// Responsive
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// --- 2. CURSOR GLOW EFFECT ---
+const glow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+});
+
+// --- 3. GSAP SCROLL ANIMATIONS ---
+gsap.registerPlugin(ScrollTrigger);
+
+// Animer les sections à l'apparition
+gsap.utils.toArray('section').forEach(section => {
+    gsap.from(section.children, {
+        scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out"
+    });
+});
+
+// Effet Parallaxe sur le globe au scroll
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    globe.rotation.y = scrollY * 0.001;
+    globe.position.y = -scrollY * 0.002;
+});
+
+// Menu mobile retiré - navigation uniquement sur desktop
+
+// --- 5. CHARGEMENT DE L'URL DU CV ---
+async function loadCVUrl() {
     try {
-        console.log('Début de la récupération des données...');
-        
-        // Utiliser getApiUrl pour obtenir l'URL correcte (proxy en localhost, direct en production)
-        const apiUrl = getApiUrl('moi');
-        
-        console.log('URL utilisée:', apiUrl);
-        
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-            mode: 'cors'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
+        const response = await fetch('https://teko-portfolio-cms.vercel.app/api/portfolio/moi');
         const result = await response.json();
-        console.log('Données reçues:', result);
         
-        if (result.success && result.data) {
-            const data = result.data;
-            console.log('Données extraites:', data);
-            console.log('Nom:', data.nom, 'Prénom:', data.prenom, 'Titre:', data.titre);
-            
-            // Mettre à jour le logo avec nom et prénom (supprimer les espaces)
-            const logoElement = document.getElementById('logo-name');
-            if (logoElement) {
-                if (data.nom && data.prenom) {
-                    // Supprimer les espaces et mettre en majuscules
-                    const fullName = (data.prenom + data.nom).replace(/\s+/g, '').toUpperCase();
-                    logoElement.innerHTML = fullName; // Utiliser innerHTML pour supprimer le spinner
-                    console.log('Logo mis à jour:', fullName);
-                } else {
-                    console.warn('Données nom/prénom manquantes:', { nom: data.nom, prenom: data.prenom });
-                    logoElement.innerHTML = 'PORTFOLIO'; // Valeur par défaut
-                }
-            } else {
-                console.error('Élément logo-name non trouvé dans le DOM');
-            }
-            
-            // Mettre à jour le titre dans la section hero (desktop)
-            const heroTitleElement = document.getElementById('hero-title');
-            if (heroTitleElement) {
-                if (data.titre) {
-                    const title = data.titre.toUpperCase();
-                    heroTitleElement.innerHTML = title; // Utiliser innerHTML pour supprimer le spinner
-                    console.log('Titre hero mis à jour:', title);
-                } else {
-                    console.warn('Titre manquant dans les données');
-                    heroTitleElement.innerHTML = 'WEB DEVELOPER'; // Valeur par défaut
-                }
-            } else {
-                console.error('Élément hero-title non trouvé dans le DOM');
-            }
-            
-            // Mettre à jour le titre dans la section hero (mobile)
-            const heroTitleMobileElement = document.getElementById('hero-title-mobile');
-            if (heroTitleMobileElement) {
-                if (data.titre) {
-                    const title = data.titre.toUpperCase();
-                    heroTitleMobileElement.innerHTML = title; // Utiliser innerHTML pour supprimer le spinner
-                    console.log('Titre hero mobile mis à jour:', title);
-                } else {
-                    console.warn('Titre manquant dans les données pour mobile');
-                    heroTitleMobileElement.innerHTML = 'WEB DEVELOPER'; // Valeur par défaut
-                }
-            } else {
-                console.error('Élément hero-title-mobile non trouvé dans le DOM');
-            }
-            
-            // Mettre à jour le titre de la page
-            const pageTitleElement = document.getElementById('page-title');
-            if (pageTitleElement && data.nom && data.prenom) {
-                pageTitleElement.textContent = `${data.prenom} ${data.nom} - Portfolio`;
-                console.log('Titre de page mis à jour');
-            }
-            
-            // Mettre à jour le résumé dans la section "À propos de moi"
-            const aboutResumeElement = document.getElementById('about-resume');
-            if (aboutResumeElement) {
-                if (data.resume) {
-                    aboutResumeElement.innerHTML = data.resume; // Utiliser innerHTML pour supprimer le spinner
-                    console.log('Résumé mis à jour');
-                } else {
-                    console.warn('Résumé manquant dans les données');
-                    aboutResumeElement.innerHTML = 'Aucun résumé disponible.';
-                }
-            } else {
-                console.error('Élément about-resume non trouvé dans le DOM');
-            }
-            
-            // Mettre à jour la photo dans la section "À propos de moi" depuis la galerie
-            const aboutPhotoElement = document.getElementById('about-photo');
-            const splineViewerElement = document.getElementById('spline-viewer-about');
-            if (aboutPhotoElement) {
-                // Récupérer la photo depuis la galerie
-                const photoUrl = await fetchPhotoFromGalerie();
-                
-                if (photoUrl) {
-                    aboutPhotoElement.src = photoUrl;
-                    aboutPhotoElement.alt = `Photo de ${data.prenom} ${data.nom}`;
-                    
-                    // Gérer le chargement de l'image
-                    aboutPhotoElement.onload = function() {
-                        aboutPhotoElement.style.display = 'block';
-                        if (splineViewerElement) {
-                            splineViewerElement.style.display = 'none';
-                        }
-                        // Supprimer le spinner de la photo si présent
-                        const photoSpinner = aboutPhotoElement.parentElement.querySelector('.spinner-container');
-                        if (photoSpinner) {
-                            photoSpinner.remove();
-                        }
-                        console.log('Photo chargée avec succès depuis la galerie:', photoUrl);
-                    };
-                    
-                    aboutPhotoElement.onerror = function() {
-                        console.warn('Erreur lors du chargement de la photo:', photoUrl);
-                        aboutPhotoElement.style.display = 'none';
-                        if (splineViewerElement) {
-                            splineViewerElement.style.display = 'block';
-                        }
-                    };
-                    
-                    console.log('Tentative de chargement de la photo depuis la galerie:', photoUrl);
-                } else {
-                    console.warn('Photo "moi_de_face" non trouvée dans la galerie');
-                    // Garder le spline-viewer visible si pas de photo
-                    aboutPhotoElement.style.display = 'none';
-                    if (splineViewerElement) {
-                        splineViewerElement.style.display = 'block';
-                    }
-                }
-            } else {
-                console.error('Élément about-photo non trouvé dans le DOM');
-            }
-            
-            // Mettre à jour la liste des parcours de formation
-            const parcoursListElement = document.getElementById('parcours-list');
-            if (parcoursListElement) {
-                const parcours = await fetchParcours();
-                if (parcours && parcours.length > 0) {
-                    parcoursListElement.innerHTML = '';
-                    parcours.forEach(formation => {
-                        // Extraire l'année de la date
-                        const date = new Date(formation.obtenu_en);
-                        const annee = date.getFullYear();
-                        
-                        const parcoursItem = document.createElement('div');
-                        parcoursItem.className = 'parcours-item';
-                        
-                        const diplomeLink = formation.diplome_pdf_url 
-                            ? `<a href="${formation.diplome_pdf_url}" target="_blank" class="diplome-link"><i class='bx bx-download'></i><span>Diplôme</span></a>`
-                            : '';
-                        
-                        parcoursItem.innerHTML = `
-                            <span class="parcours-annee">${annee}</span>
-                            <span class="parcours-title">${formation.titre}</span>
-                            ${diplomeLink}
-                        `;
-                        parcoursListElement.appendChild(parcoursItem);
-                    });
-                    console.log('Parcours mis à jour:', parcours.length);
-                    
-                    // Démarrer le scroll automatique si le contenu dépasse
-                    startAutoScroll(parcoursListElement);
-                } else {
-                    parcoursListElement.textContent = 'Aucun parcours disponible.';
-                    console.warn('Aucun parcours trouvé');
-                }
-            } else {
-                console.error('Élément parcours-list non trouvé dans le DOM');
-            }
-            
-            // Mettre à jour le bouton de téléchargement du CV
+        if (result.success && result.data && result.data.cv_url) {
             const cvDownloadBtn = document.getElementById('cv-download-btn');
             if (cvDownloadBtn) {
-                if (data.cv_url && data.cv_url.trim() !== '') {
-                    cvDownloadBtn.href = data.cv_url;
-                    cvDownloadBtn.style.display = 'inline-block';
-                    console.log('Bouton CV mis à jour:', data.cv_url);
-                } else {
-                    console.warn('URL du CV manquante dans les données');
-                    cvDownloadBtn.style.display = 'none';
-                }
-            } else {
-                console.error('Élément cv-download-btn non trouvé dans le DOM');
+                cvDownloadBtn.href = result.data.cv_url;
+                cvDownloadBtn.download = 'CV_Teko_Fabrice_Folly.pdf';
+                cvDownloadBtn.target = '_blank';
             }
-            
-            // Créer les cards de compétences
-            const competencesContainer = document.getElementById('competences-cards-container');
-            const technosTitle = document.getElementById('technos-title');
-            if (competencesContainer) {
-                const competences = await fetchCompetences();
-                if (competences && competences.length > 0) {
-                    // Afficher le titre
-                    if (technosTitle) {
-                        technosTitle.style.display = 'block';
-                    }
-                    
-                    competencesContainer.innerHTML = '';
-                    competences.forEach((competence, index) => {
-                        const competenceCard = document.createElement('div');
-                        competenceCard.className = 'card competence-card';
-                        
-                        // Formater la description pour gérer les retours à la ligne
-                        const description = competence.description.replace(/\n/g, '<br>');
-                        
-                        competenceCard.innerHTML = `
-                            <h2 class="card-title">${competence.titre}</h2>
-                            <p class="card-text">${description}</p>
-                            <img src="images/gradient3&4.png" alt="" class="background-img">
-                        `;
-                        
-                        competencesContainer.appendChild(competenceCard);
-                    });
-                    console.log('Cards de compétences créées:', competences.length);
-                } else {
-                    console.warn('Aucune compétence trouvée pour créer les cards');
-                }
-            } else {
-                console.error('Élément competences-cards-container non trouvé dans le DOM');
-            }
-            
-            // Charger les infos de contact
-            await loadContactInfo(data);
-        } else {
-            console.warn('Réponse API invalide:', result);
         }
     } catch (error) {
-        console.error('Erreur lors de la récupération des données:', error);
-        // Valeurs par défaut en cas d'erreur
-        const logoElement = document.getElementById('logo-name');
-        if (logoElement) logoElement.innerHTML = 'PORTFOLIO';
-        
-        const heroTitleElement = document.getElementById('hero-title');
-        if (heroTitleElement) heroTitleElement.innerHTML = 'WEB DEVELOPER';
-        
-        const heroTitleMobileElement = document.getElementById('hero-title-mobile');
-        if (heroTitleMobileElement) heroTitleMobileElement.innerHTML = 'WEB DEVELOPER';
+        console.error('Erreur lors du chargement de l\'URL du CV:', error);
     }
 }
 
-// Fonction pour le scroll automatique
-function startAutoScroll(element) {
-    if (!element) return;
+// Charger l'URL du CV au chargement de la page
+loadCVUrl();
+
+// --- 6. CHARGEMENT DES PROJETS ---
+function createSkeletonProjectCard() {
+    const card = document.createElement('div');
+    card.className = 'skeleton-project-card';
     
-    // Vérifier si le contenu dépasse la hauteur visible
-    if (element.scrollHeight <= element.clientHeight) {
-        return; // Pas besoin de scroller si tout est visible
-    }
+    const video = document.createElement('div');
+    video.className = 'skeleton skeleton-project-video';
+    card.appendChild(video);
     
-    let scrollDirection = 1; // 1 pour descendre, -1 pour monter
-    let animationId = null;
-    let isPaused = false;
+    const title = document.createElement('div');
+    title.className = 'skeleton skeleton-project-title';
+    card.appendChild(title);
     
-    const scroll = () => {
-        if (isPaused) {
-            animationId = null;
-            return;
-        }
-        
-        const maxScroll = element.scrollHeight - element.clientHeight;
-        const currentScroll = element.scrollTop;
-        
-        // Changer de direction si on atteint les limites
-        if (currentScroll >= maxScroll - 1) {
-            scrollDirection = -1; // Remonter
-        } else if (currentScroll <= 1) {
-            scrollDirection = 1; // Redescendre
-        }
-        
-        // Scroller progressivement (vitesse lente)
-        element.scrollTop += scrollDirection * 0.3;
-        
-        animationId = requestAnimationFrame(scroll);
-    };
+    const desc1 = document.createElement('div');
+    desc1.className = 'skeleton skeleton-project-description';
+    card.appendChild(desc1);
     
-    // Pause au survol
-    element.addEventListener('mouseenter', () => {
-        isPaused = true;
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
-        }
-    });
+    const desc2 = document.createElement('div');
+    desc2.className = 'skeleton skeleton-project-description';
+    card.appendChild(desc2);
     
-    element.addEventListener('mouseleave', () => {
-        isPaused = false;
-        if (!animationId && element.scrollHeight > element.clientHeight) {
-            scroll();
-        }
-    });
+    const category = document.createElement('div');
+    category.className = 'skeleton skeleton-project-category';
+    card.appendChild(category);
     
-    // Démarrer le scroll après un court délai
-    setTimeout(() => {
-        if (element.scrollHeight > element.clientHeight && !isPaused) {
-            scroll();
-        }
-    }, 1000);
+    const links = document.createElement('div');
+    links.className = 'skeleton-project-links';
+    const link1 = document.createElement('div');
+    link1.className = 'skeleton skeleton-project-link';
+    const link2 = document.createElement('div');
+    link2.className = 'skeleton skeleton-project-link';
+    links.appendChild(link1);
+    links.appendChild(link2);
+    card.appendChild(links);
+    
+    return card;
 }
 
-// Fonction pour charger et afficher les projets
-async function loadProjets() {
+async function loadProjects() {
+    const projectsContainer = document.getElementById('projects-container');
+    if (!projectsContainer) return;
+    
+    // Afficher les skeletons
+    projectsContainer.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        projectsContainer.appendChild(createSkeletonProjectCard());
+    }
+    
     try {
-        const projets = await fetchProjets();
-        const projectsList = document.getElementById('projects-list');
-        const projectsSlider = document.getElementById('projects-slider');
+        const response = await fetch('https://teko-portfolio-cms.vercel.app/api/portfolio/projets');
+        const result = await response.json();
         
-        if (!projectsList || !projectsSlider) {
-            console.error('Éléments projets non trouvés dans le DOM');
-            return;
+        if (result.success && result.data && Array.isArray(result.data)) {
+            // Filtrer les projets avec index 1, 2, 3
+            const projects = result.data
+                .filter(projet => projet.index >= 1 && projet.index <= 3)
+                .sort((a, b) => a.index - b.index)
+                .slice(0, 3);
+            
+            // Remplacer les skeletons par les vraies données
+            projectsContainer.innerHTML = '';
+            
+            projects.forEach(projet => {
+                const projectCard = createProjectCard(projet);
+                projectsContainer.appendChild(projectCard);
+            });
+        } else {
+            // En cas d'erreur, garder les skeletons ou afficher un message
+            projectsContainer.innerHTML = '<p class="text-gray-400 text-center col-span-full">Erreur lors du chargement des projets</p>';
         }
-        
-        if (projets && projets.length > 0) {
-            // Mettre à jour la quantité dans le slider
-            projectsSlider.style.setProperty('--quantity', projets.length);
-            
-            // Vider la liste existante
-            projectsList.innerHTML = '';
-            
-            // Créer les éléments de projet
-            projets.forEach((projet, index) => {
-                const item = document.createElement('div');
-                item.className = 'item';
-                item.style.setProperty('--position', index + 1);
-                
-                // Conteneur pour la vidéo
+    } catch (error) {
+        console.error('Erreur lors du chargement des projets:', error);
+        projectsContainer.innerHTML = '<p class="text-gray-400 text-center col-span-full">Erreur lors du chargement des projets</p>';
+    }
+}
+
+function createProjectCard(projet) {
+    const card = document.createElement('div');
+    card.className = 'glass-card p-4 md:p-5 group';
+    
+    // Vidéo
                 const videoContainer = document.createElement('div');
-                videoContainer.className = 'video-container';
-                
+    videoContainer.className = 'relative';
                 const video = document.createElement('video');
-                video.id = `projectVideo${index + 1}`;
+    video.className = 'project-video';
+    // Utiliser video_url si disponible, sinon image_url
+    const mediaUrl = projet.video_url || projet.image_url || '';
+    if (mediaUrl) {
+        video.src = mediaUrl;
+        video.autoplay = true;
                 video.loop = true;
+        video.muted = true;
                 video.playsInline = true;
-                video.src = projet.video_url || '';
-                
-                // Gérer le chargement de la vidéo
-                video.addEventListener('loadeddata', () => {
-                    console.log(`Vidéo du projet ${projet.titre} chargée`);
-                });
-                
-                video.addEventListener('error', () => {
-                    console.warn(`Erreur lors du chargement de la vidéo pour ${projet.titre}`);
-                });
-                
+        video.setAttribute('preload', 'auto');
+        video.setAttribute('controls', false);
+        // Gestion d'erreur si la vidéo ne peut pas être chargée
+        video.onerror = function() {
+            console.warn('Erreur de chargement de la vidéo:', mediaUrl);
+        };
+    }
                 videoContainer.appendChild(video);
-                
-                // Conteneur pour les infos du projet
-                const projectInfo = document.createElement('div');
-                projectInfo.className = 'project-info';
-                
-                // Catégorie
-                const category = document.createElement('div');
-                category.className = 'project-category';
-                category.textContent = projet.category || '';
+    card.appendChild(videoContainer);
                 
                 // Titre
-                const title = document.createElement('h4');
-                title.className = 'project-title';
-                title.textContent = projet.titre || '';
+    const title = document.createElement('h3');
+    title.className = 'text-lg md:text-xl font-bold mt-3 md:mt-4';
+    title.textContent = projet.titre || 'Projet sans titre';
+    card.appendChild(title);
                 
                 // Description
                 const description = document.createElement('p');
-                description.className = 'project-description';
+    description.className = 'project-description text-xs md:text-sm text-gray-400 mt-2';
                 description.textContent = projet.description || '';
-                
-                // Conteneur pour les liens
+    description.title = projet.description || ''; // Tooltip au hover
+    card.appendChild(description);
+    
+    // Catégorie
+    if (projet.category) {
+        const category = document.createElement('span');
+        category.className = 'project-category';
+        category.textContent = projet.category;
+        card.appendChild(category);
+    }
+    
+    // Liens
                 const linksContainer = document.createElement('div');
                 linksContainer.className = 'project-links';
                 
-                // Lien d'accès
                 if (projet.acces_url) {
                     const accessLink = document.createElement('a');
                     accessLink.href = projet.acces_url;
                     accessLink.target = '_blank';
                     accessLink.rel = 'noopener noreferrer';
-                    accessLink.className = 'project-link access-link';
-                    accessLink.innerHTML = '<i class="bx bx-link-external"></i> Voir le projet';
+        accessLink.className = 'project-link';
+        accessLink.innerHTML = `
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+            <span>Accès</span>
+        `;
                     linksContainer.appendChild(accessLink);
                 }
                 
-                // Lien source
                 if (projet.source_url) {
                     const sourceLink = document.createElement('a');
                     sourceLink.href = projet.source_url;
                     sourceLink.target = '_blank';
                     sourceLink.rel = 'noopener noreferrer';
-                    sourceLink.className = 'project-link source-link';
-                    sourceLink.innerHTML = '<i class="bx bxl-github"></i> Code source';
+        sourceLink.className = 'project-link';
+        sourceLink.innerHTML = `
+            <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <span>GitHub</span>
+        `;
                     linksContainer.appendChild(sourceLink);
                 }
                 
-                projectInfo.appendChild(category);
-                projectInfo.appendChild(title);
-                projectInfo.appendChild(description);
-                projectInfo.appendChild(linksContainer);
-                
-                // Gérer les événements hover sur l'item entier
-                item.addEventListener('mouseenter', function() {
-                    video.play();
-                    projectInfo.classList.add('show');
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    video.pause();
-                    projectInfo.classList.remove('show');
-                });
-                
-                item.appendChild(videoContainer);
-                item.appendChild(projectInfo);
-                projectsList.appendChild(item);
-            });
-            
-            console.log('Projets chargés:', projets.length);
-        } else {
-            console.warn('Aucun projet trouvé');
-            projectsList.innerHTML = '<div class="item"><p>Aucun projet disponible</p></div>';
-        }
-    } catch (error) {
-        console.error('Erreur lors du chargement des projets:', error);
+    if (linksContainer.children.length > 0) {
+        card.appendChild(linksContainer);
+    }
+    
+    return card;
+}
+
+// Charger les projets au chargement de la page
+loadProjects();
+
+// --- 7. CONFIGURATION DU LIEN PORTFOLIO ---
+// Définir le lien vers la page portfolio de manière dynamique
+function setupPortfolioLink() {
+    const portfolioLink = document.getElementById('portfolio-link');
+    if (portfolioLink) {
+        // Utiliser window.location pour obtenir l'URL de base dynamiquement
+        // Si on est sur index.html, on va vers portfolio.html dans le même dossier
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        portfolioLink.href = `${basePath}/portfolio.html`;
     }
 }
 
-// Fonction pour obtenir la classe d'icône selon le nom du réseau
-function getIconClass(nom) {
-    const nomLower = nom.toLowerCase();
-    if (nomLower.includes('github')) {
-        return 'bx bxl-github';
-    } else if (nomLower.includes('linkedin')) {
-        return 'bx bxl-linkedin-square';
-    } else if (nomLower.includes('twitter')) {
-        return 'bx bxl-twitter';
-    } else if (nomLower.includes('youtube')) {
-        return 'bx bxl-youtube';
-    } else if (nomLower.includes('instagram')) {
-        return 'bx bxl-instagram';
-    } else if (nomLower.includes('facebook')) {
-        return 'bx bxl-facebook';
-    }
-    return 'bx bx-link-external';
+// Configurer le lien au chargement de la page
+setupPortfolioLink();
+
+// --- 8. CHARGEMENT DU PARCOURS ---
+function createSkeletonParcoursItem() {
+    const item = document.createElement('div');
+    item.className = 'skeleton-parcours-item';
+    
+    const point = document.createElement('div');
+    point.className = 'skeleton skeleton-parcours-point';
+    item.appendChild(point);
+    
+    const title = document.createElement('div');
+    title.className = 'skeleton skeleton-parcours-title';
+    item.appendChild(title);
+    
+    const school = document.createElement('div');
+    school.className = 'skeleton skeleton-parcours-school';
+    item.appendChild(school);
+    
+    const mention = document.createElement('div');
+    mention.className = 'skeleton skeleton-parcours-mention';
+    item.appendChild(mention);
+    
+    return item;
 }
 
-// Fonction pour charger les infos de contact
-async function loadContactInfo(data) {
+async function loadParcours() {
+    const parcoursContainer = document.getElementById('parcours-container');
+    if (!parcoursContainer) return;
+    
+    // Afficher les skeletons (2 items)
+    parcoursContainer.innerHTML = '';
+    for (let i = 0; i < 2; i++) {
+        parcoursContainer.appendChild(createSkeletonParcoursItem());
+    }
+    
     try {
-        // Mettre à jour l'email
-        const contactEmail = document.getElementById('contact-email');
-        if (contactEmail && data.email) {
-            contactEmail.href = `mailto:${data.email}`;
-            contactEmail.className = ''; // Supprimer la classe spinner-inline
-            contactEmail.innerHTML = data.email; // Utiliser innerHTML pour supprimer le spinner
-        }
+        const response = await fetch('https://teko-portfolio-cms.vercel.app/api/portfolio/parcours');
+        const result = await response.json();
         
-        // Mettre à jour le téléphone
-        const contactPhone = document.getElementById('contact-phone');
-        if (contactPhone && data.telephone) {
-            contactPhone.href = `tel:${data.telephone.replace(/\s+/g, '')}`;
-            contactPhone.className = ''; // Supprimer la classe spinner-inline
-            contactPhone.innerHTML = data.telephone; // Utiliser innerHTML pour supprimer le spinner
-        }
-        
-        // Charger les réseaux sociaux dans la section contact
-        const socialLinksContainer = document.getElementById('social-links-container');
-        if (socialLinksContainer) {
-            const reseaux = await fetchReseaux();
-            if (reseaux && reseaux.length > 0) {
-                socialLinksContainer.innerHTML = '';
-                reseaux.forEach(reseau => {
-                    const link = document.createElement('a');
-                    link.href = reseau.url;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    link.textContent = reseau.nom;
-                    socialLinksContainer.appendChild(link);
-                });
-                console.log('Réseaux sociaux chargés:', reseaux.length);
-            } else {
-                console.warn('Aucun réseau social trouvé');
-                socialLinksContainer.innerHTML = '<p>Aucun réseau disponible</p>';
-            }
+        if (result.success && result.data && Array.isArray(result.data)) {
+            // Trier les parcours par date (du plus récent au plus ancien)
+            const parcours = result.data.sort((a, b) => {
+                const dateA = new Date(a.obtenu_en);
+                const dateB = new Date(b.obtenu_en);
+                return dateB - dateA; // Plus récent en premier
+            });
             
-            // Charger les réseaux sociaux dans le footer
-            const footerSocialLinks = document.getElementById('footer-social-links');
-            if (footerSocialLinks && reseaux && reseaux.length > 0) {
-                footerSocialLinks.innerHTML = '';
-                reseaux.forEach(reseau => {
-                    const link = document.createElement('a');
-                    link.href = reseau.url;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    
-                    // Utiliser l'icône depuis l'API si disponible, sinon utiliser une icône par défaut
-                    if (reseau.icon_url) {
-                        const img = document.createElement('img');
-                        img.src = reseau.icon_url;
-                        img.alt = reseau.nom;
-                        link.appendChild(img);
+            // Remplacer les skeletons par les vraies données
+            parcoursContainer.innerHTML = '';
+            
+            if (parcours.length === 0) {
+                parcoursContainer.innerHTML = '<p class="text-gray-400">Aucun parcours disponible</p>';
                     } else {
-                        // Icônes par défaut selon le nom
-                        const iconClass = getIconClass(reseau.nom);
-                        const icon = document.createElement('i');
-                        icon.className = iconClass;
-                        link.appendChild(icon);
-                    }
-                    
-                    footerSocialLinks.appendChild(link);
+                parcours.forEach((item, index) => {
+                    const parcoursItem = createParcoursItem(item, index);
+                    parcoursContainer.appendChild(parcoursItem);
                 });
-                console.log('Réseaux sociaux du footer chargés:', reseaux.length);
             }
+        } else {
+            parcoursContainer.innerHTML = '<p class="text-gray-400">Erreur lors du chargement du parcours</p>';
         }
     } catch (error) {
-        console.error('Erreur lors du chargement des infos de contact:', error);
+        console.error('Erreur lors du chargement du parcours:', error);
+        parcoursContainer.innerHTML = '<p class="text-gray-400">Erreur lors du chargement du parcours</p>';
     }
 }
 
-// Fonction d'initialisation complète
-function init() {
-    console.log('Initialisation...');
-    console.log('État du document:', document.readyState);
+function createParcoursItem(parcours, index) {
+    const item = document.createElement('div');
+    item.className = 'relative';
     
-    // Vérifier si les éléments existent
-    const logoElement = document.getElementById('logo-name');
-    const heroTitleElement = document.getElementById('hero-title');
-    const heroTitleMobileElement = document.getElementById('hero-title-mobile');
-    console.log('Éléments trouvés:', { 
-        logo: !!logoElement, 
-        heroTitle: !!heroTitleElement,
-        heroTitleMobile: !!heroTitleMobileElement
-    });
+    // Point sur la timeline (premier en bleu, autres en gris)
+    const point = document.createElement('span');
+    point.className = `absolute -left-7 md:-left-11 top-1 w-4 h-4 md:w-6 md:h-6 rounded-full border-2 md:border-4 border-gray-900 ${
+        index === 0 ? 'bg-blue-600' : 'bg-gray-700'
+    }`;
+    item.appendChild(point);
     
-    // Charger les données de l'API
-    fetchPortfolioData();
+    // Titre
+    const title = document.createElement('h3');
+    title.className = 'text-lg md:text-xl font-bold text-white';
+    title.textContent = parcours.titre || 'Titre non disponible';
+    item.appendChild(title);
     
-    // Charger les projets
-    loadProjets();
-
-    // Minimal JS just for the spotlight effect
-    document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            // Update CSS variables for the spotlight effect
-            card.style.setProperty('--x', `${e.clientX - rect.left}px`);
-            card.style.setProperty('--y', `${e.clientY - rect.top}px`);
-        });
-    });
+    // École et année
+    const date = new Date(parcours.obtenu_en);
+    const year = date.getFullYear();
+    const schoolYear = document.createElement('span');
+    schoolYear.className = 'text-xs md:text-sm text-blue-400';
+    schoolYear.textContent = `${parcours.ecole || 'École non disponible'} • ${year}`;
+    item.appendChild(schoolYear);
     
-    // Fonction pour faire défiler vers une section
-    function scrollToSection(selector, offset = 0) {
-        const section = document.querySelector(selector);
-        if (section) {
-            const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({
-                top: sectionTop - offset,
-                behavior: 'smooth'
-            });
-        }
+    // Mention + lien de téléchargement
+    const mentionContainer = document.createElement('div');
+    mentionContainer.className = 'flex items-center gap-2 mt-1';
+    
+    const mention = document.createElement('span');
+    mention.className = 'text-xs md:text-sm text-gray-500';
+    // Utiliser mention si disponible, sinon un texte par défaut
+    mention.textContent = parcours.mention || 'Télécharger diplôme';
+    mentionContainer.appendChild(mention);
+    
+    // Lien de téléchargement si disponible
+    if (parcours.diplome_pdf_url) {
+        const downloadLink = document.createElement('a');
+        downloadLink.href = parcours.diplome_pdf_url;
+        downloadLink.target = '_blank';
+        downloadLink.rel = 'noopener noreferrer';
+        downloadLink.className = 'inline-flex items-center gap-1 text-xs md:text-sm text-blue-400 hover:text-blue-300 transition';
+        downloadLink.title = 'Télécharger le diplôme';
+        downloadLink.innerHTML = `
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+        `;
+        mentionContainer.appendChild(downloadLink);
     }
     
-    // Bouton Contact - faire défiler vers la section contact
-    const contactBtn = document.querySelector('.contact-btn');
-    if (contactBtn) {
-        contactBtn.addEventListener('click', () => {
-            scrollToSection('.contact-section', 50);
-        });
-    }
+    item.appendChild(mentionContainer);
     
-    // Bouton scroll-down - faire défiler vers la section about
-    const scrollDownBtn = document.querySelector('.scroll-down');
-    if (scrollDownBtn) {
-        scrollDownBtn.addEventListener('click', () => {
-            scrollToSection('.about-section', 50);
-        });
-        // Ajouter le style cursor pointer pour indiquer que c'est cliquable
-        scrollDownBtn.style.cursor = 'pointer';
-    }
+    return item;
 }
 
-// Charger les données au chargement de la page
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM chargé via DOMContentLoaded');
-        init();
-    });
-} else {
-    // Le DOM est déjà chargé, exécuter immédiatement
-    console.log('DOM déjà chargé, exécution immédiate');
-    init();
-}
+// Charger le parcours au chargement de la page
+loadParcours();
+

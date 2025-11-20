@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Teko Fabrice Folly | Full-Stack Dev</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Grotesk:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="canvas-container"></div>
+    <div class="glow-spot" id="cursor-glow"></div>
+
+    <nav>
+        <a href="index.html" class="text-lg md:text-xl font-bold tracking-tighter">TEKO<span
+                style="color:var(--accent-primary)">.DEV</span></a>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+            <a href="index.html#about" class="hover:text-white transition">À Propos</a>
+            <a href="index.html#stack" class="hover:text-white transition">Compétences</a>
+            <a href="index.html#projects" class="hover:text-white transition">Projets</a>
+            <a href="index.html#contact" class="hover:text-white transition">Contact</a>
+        </div>
+    </nav>
+
+    <section id="portfolio" class="min-h-screen pt-24 md:pt-20">
+        <div class="mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-center">Tous mes Projets</h1>
+            <p class="text-sm md:text-base text-gray-500 text-center">Découvrez l'ensemble de mes réalisations</p>
+        </div>
+
+        <div id="all-projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+            <!-- Les projets seront chargés dynamiquement ici -->
+        </div>
+    </section>
+
+    <script src="portfolio.js"></script>
+</body>
+
+</html>
+
