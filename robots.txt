@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /portfolio.html
+Allow: /style.css
+Allow: /app.js
+Allow: /portfolio.js
+
+# Sitemap
+Sitemap: https://teko-fabrice.vercel.app/sitemap.xml
+
+# Crawl-delay (optionnel, pour ne pas surcharger le serveur)
+Crawl-delay: 1
+
