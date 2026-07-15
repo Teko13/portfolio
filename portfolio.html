@@ -12,9 +12,17 @@
     <meta property="og:title" content="Portfolio Complet - Teko Fabrice Folly | Projets Web et Mobile">
     <meta property="og:description" content="Découvrez l'ensemble des réalisations web et mobiles de Teko Fabrice Folly, développeur Full-Stack.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://teko-fabrice.vercel.app/portfolio.html">
+    <meta property="og:image" content="https://teko-fabrice.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Portfolio Complet - Teko Fabrice Folly">
     <meta name="twitter:description" content="Tous les projets web et mobiles réalisés par Teko Fabrice Folly, développeur Full-Stack.">
+    <meta name="twitter:image" content="https://teko-fabrice.vercel.app/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -23,22 +31,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <link rel="stylesheet" href="style.css?v=2.2">
     <link rel="canonical" href="https://teko-fabrice.vercel.app/portfolio.html">
 </head>
 
 <body>
 
-    <nav>
-        <a href="index.html" class="text-lg md:text-xl font-bold tracking-tighter">TEKO<span
-                style="color:var(--accent-primary)">.DEV</span></a>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-            <a href="index.html#about" class="hover:text-white transition">À Propos</a>
-            <a href="index.html#stack" class="hover:text-white transition">Compétences</a>
-            <a href="index.html#projects" class="hover:text-white transition">Projets</a>
-            <a href="index.html#contact" class="hover:text-white transition">Contact</a>
-        </div>
-    </nav>
+    <div id="site-header"></div>
+    <script src="header.js?v=2.2"></script>
 
     <section id="portfolio" class="min-h-screen pt-24 md:pt-20">
         <a href="index.html"
