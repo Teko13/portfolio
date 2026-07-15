@@ -18,7 +18,8 @@
 
     const nav = document.createElement('nav');
     nav.innerHTML =
-        `<a href="${brandHref}" class="site-brand">TEKO</a>` +
+        `<a href="${brandHref}" class="site-brand" aria-label="TEKO — accueil">` +
+        `<img src="favicon.svg" alt="TEKO" class="site-brand-logo" width="42" height="42"></a>` +
         `<div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">` +
         links.map(([label, anchor]) =>
             `<a href="${base}#${anchor}" class="hover:text-white transition">${label}</a>`

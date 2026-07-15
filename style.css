@@ -148,22 +148,28 @@ nav a {
     letter-spacing: 0.08em;
 }
 
-/* Marque : police fixe, identique sur toutes les pages */
+/* Marque : logo TEKO, identique sur toutes les pages */
 .site-brand {
-    font-family: 'Space Grotesk', sans-serif !important;
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    text-transform: none !important;
+    display: inline-flex;
+    align-items: center;
 }
 
-.site-brand:hover {
-    color: var(--acid);
+.site-brand-logo {
+    display: block;
+    width: 38px;
+    height: 38px;
+    transition: transform 0.15s ease;
+}
+
+.site-brand:hover .site-brand-logo {
+    transform: translate(-1px, -1px) rotate(-2deg);
 }
 
 @media (min-width: 768px) {
-    .site-brand { font-size: 1.35rem; }
+    .site-brand-logo {
+        width: 42px;
+        height: 42px;
+    }
 }
 
 @media (min-width: 768px) {
