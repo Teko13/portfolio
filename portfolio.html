@@ -16,21 +16,18 @@
     <meta name="twitter:title" content="Portfolio Complet - Teko Fabrice Folly">
     <meta name="twitter:description" content="Tous les projets web et mobiles réalisés par Teko Fabrice Folly, développeur Full-Stack.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Grotesk:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.1">
     <link rel="canonical" href="https://teko-fabrice.vercel.app/portfolio.html">
 </head>
 
 <body>
-
-    <div id="canvas-container"></div>
-    <div class="glow-spot" id="cursor-glow"></div>
 
     <nav>
         <a href="index.html" class="text-lg md:text-xl font-bold tracking-tighter">TEKO<span
@@ -44,9 +41,12 @@
     </nav>
 
     <section id="portfolio" class="min-h-screen pt-24 md:pt-20">
-        <div class="mb-8 md:mb-12">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-center">Tous mes Projets</h1>
-            <p class="text-sm md:text-base text-gray-500 text-center">Découvrez l'ensemble de mes réalisations</p>
+        <a href="index.html"
+            class="mono text-xs md:text-sm uppercase tracking-wider inline-flex items-center gap-2 mb-8 text-gray-400 hover:text-white transition">← Retour à l'accueil</a>
+        <div class="mb-10 md:mb-14">
+            <p class="eyebrow">[ Archive ] Portfolio complet</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 uppercase">Tous mes Projets</h1>
+            <p class="text-sm md:text-base text-gray-500">Découvrez l'ensemble de mes réalisations.</p>
         </div>
 
         <div id="all-projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
@@ -54,7 +54,11 @@
         </div>
     </section>
 
-    <script src="portfolio.js"></script>
+    <footer class="mt-12 md:mt-20 py-10 text-center" style="border-top:2px solid var(--line-strong); background:var(--bg-alt)">
+        <p class="mono text-xs md:text-sm text-gray-500">© Teko Fabrice Folly — <a href="index.html" style="color:var(--acid)" class="hover:underline">teko.dev</a></p>
+    </footer>
+
+    <script src="portfolio.js?v=2.2"></script>
 </body>
 
 </html>

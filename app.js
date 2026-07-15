@@ -4,18 +4,30 @@
 //   plus léger ; le fond est géré en CSS)
 // =====================================================================
 
-// --- 1. GSAP SCROLL ANIMATIONS (reveal brutaliste) ---
+// --- 1. GSAP ANIMATIONS (reveal brutaliste) ---
 // Respecte prefers-reduced-motion : pas d'animation, contenu visible d'emblée.
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (!prefersReducedMotion) {
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.utils.toArray('section').forEach(section => {
+    // Le hero est déjà au-dessus de la ligne de flottaison : animation au
+    // chargement, sans ScrollTrigger (jouée jusqu'au bout, jamais figée).
+    gsap.from('#home > *', {
+        y: 28,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "back.out(1.4)"
+    });
+
+    // Les autres sections se révèlent au scroll (once = ne rejoue pas).
+    gsap.utils.toArray('section:not(#home)').forEach(section => {
         gsap.from(section.children, {
             scrollTrigger: {
                 trigger: section,
-                start: "top 82%",
+                start: "top 85%",
+                once: true
             },
             y: 28,
             opacity: 0,
@@ -119,8 +131,6 @@ async function loadProjects() {
     } catch (error) {
         console.error('Erreur lors du chargement des projets:', error);
         projectsContainer.innerHTML = '<p class="text-gray-400 text-center col-span-full">Erreur lors du chargement des projets</p>';
-    } finally {
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
     }
 }
 
@@ -288,8 +298,6 @@ async function loadParcours() {
     } catch (error) {
         console.error('Erreur lors du chargement du parcours:', error);
         parcoursContainer.innerHTML = '<p class="text-gray-400">Erreur lors du chargement du parcours</p>';
-    } finally {
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
     }
 }
 

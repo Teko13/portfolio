@@ -458,9 +458,12 @@ section {
     opacity: 1;
 }
 
-#projects-container .glass-card { --card-accent: var(--acid); }
-#projects-container .glass-card:nth-child(3n+2) { --card-accent: var(--violet); }
-#projects-container .glass-card:nth-child(3n+3) { --card-accent: var(--pink); }
+#projects-container .glass-card,
+#all-projects-container .glass-card { --card-accent: var(--acid); }
+#projects-container .glass-card:nth-child(3n+2),
+#all-projects-container .glass-card:nth-child(3n+2) { --card-accent: var(--violet); }
+#projects-container .glass-card:nth-child(3n+3),
+#all-projects-container .glass-card:nth-child(3n+3) { --card-accent: var(--pink); }
 
 .project-description {
     display: -webkit-box;

@@ -1,108 +1,24 @@
-// --- 1. THREE.JS GLOBE (GITHUB STYLE) ---
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+// =====================================================================
+//  TEKO.DEV — Portfolio complet (design brutaliste, fond géré en CSS)
+// =====================================================================
 
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('canvas-container').appendChild(renderer.domElement);
+// --- 1. ANIMATION D'ENTREE (reveal brutaliste) ---
+// Page à section unique, entièrement au-dessus de la ligne de flottaison :
+// une simple animation au chargement (sans ScrollTrigger) — toujours jouée
+// jusqu'au bout, jamais figée. Respecte prefers-reduced-motion.
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Création d'un globe de points (Particules)
-const geometry = new THREE.BufferGeometry();
-const count = 2000;
-const positions = new Float32Array(count * 3);
-
-for (let i = 0; i < count * 3; i++) {
-    positions[i] = (Math.random() - 0.5) * 10; // Spread aléatoire
-}
-
-geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-// Matériau "Point bleu"
-const material = new THREE.PointsMaterial({
-    size: 0.03,
-    color: 0x2f81f7,
-    transparent: true,
-    opacity: 0.8
-});
-
-// Forme Sphérique plus structurée
-const sphereGeo = new THREE.SphereGeometry(4, 64, 64);
-const sphereMat = new THREE.PointsMaterial({
-    color: 0x58a6ff,
-    size: 0.02,
-    transparent: true,
-    opacity: 0.6
-});
-const globe = new THREE.Points(sphereGeo, sphereMat);
-scene.add(globe);
-
-// Ajout d'étoiles lointaines (Passion Astronomie)
-const starGeo = new THREE.BufferGeometry();
-const starCount = 1000;
-const starPos = new Float32Array(starCount * 3);
-for (let i = 0; i < starCount * 3; i++) {
-    starPos[i] = (Math.random() - 0.5) * 50;
-}
-starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, opacity: 0.3 });
-const stars = new THREE.Points(starGeo, starMat);
-scene.add(stars);
-
-camera.position.z = 10;
-globe.position.x = 3; // Décalé à droite comme GitHub
-
-// Animation Loop
-const animate = () => {
-    requestAnimationFrame(animate);
-    globe.rotation.y += 0.002;
-    globe.rotation.x += 0.001;
-    stars.rotation.y -= 0.0005;
-    renderer.render(scene, camera);
-};
-animate();
-
-// Responsive
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-// --- 2. CURSOR GLOW EFFECT ---
-const glow = document.getElementById('cursor-glow');
-document.addEventListener('mousemove', (e) => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-});
-
-// --- 3. GSAP SCROLL ANIMATIONS ---
-gsap.registerPlugin(ScrollTrigger);
-
-// Animer les sections à l'apparition
-gsap.utils.toArray('section').forEach(section => {
-    gsap.from(section.children, {
-        scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-        },
-        y: 50,
+if (!prefersReducedMotion) {
+    gsap.from('#portfolio > *', {
+        y: 28,
         opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out"
+        duration: 0.45,
+        stagger: 0.08,
+        ease: "back.out(1.4)"
     });
-});
+}
 
-// Effet Parallaxe sur le globe au scroll
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    globe.rotation.y = scrollY * 0.001;
-    globe.position.y = -scrollY * 0.002;
-});
-
-// Menu mobile retiré - navigation uniquement sur desktop
-
-// --- 5. CHARGEMENT DE TOUS LES PROJETS ---
+// --- 2. CHARGEMENT DE TOUS LES PROJETS ---
 async function loadAllProjects() {
     const projectsContainer = document.getElementById('all-projects-container');
     if (!projectsContainer) return;
@@ -209,7 +125,7 @@ function createProjectCard(projet) {
     
     // Titre
     const title = document.createElement('h3');
-    title.className = 'text-lg md:text-xl font-bold mt-3 md:mt-4';
+    title.className = 'text-lg md:text-xl font-bold mt-3 md:mt-4 uppercase';
     title.textContent = projet.titre || 'Projet sans titre';
     card.appendChild(title);
     
