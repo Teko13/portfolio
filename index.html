@@ -16,21 +16,18 @@
     <meta name="twitter:title" content="Teko Fabrice Folly - Développeur Web et Mobile Full-Stack">
     <meta name="twitter:description" content="Développeur Web et Mobile Full-Stack basé en France. Spécialisé en React, Next.js, Node.js et technologies modernes.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Grotesk:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.0">
     <link rel="canonical" href="https://teko-fabrice.vercel.app/">
 </head>
 
 <body>
-
-    <div id="canvas-container"></div>
-    <div class="glow-spot" id="cursor-glow"></div>
 
     <nav>
         <div class="text-lg md:text-xl font-bold tracking-tighter">TEKO<span
@@ -44,84 +41,92 @@
     </nav>
 
     <section id="home" class="min-h-screen flex flex-col justify-center items-start pt-24 md:pt-20">
-        <div
-            class="inline-block px-3 py-1 md:px-4 mb-4 border border-blue-500/30 rounded-full bg-blue-500/10 text-blue-400 text-xs md:text-sm font-mono animate-pulse">
-            Dispo pour Freelance
-        </div>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6 leading-tight">
+        <div class="status-badge mb-6"><span class="status-dot"></span>Disponible pour freelance</div>
+        <p class="eyebrow">Teko Fabrice Folly — France</p>
+        <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-5 md:mb-6 leading-[0.95] uppercase">
             Développeur<br>
-            <span class="hero-gradient">Web & Mobile Full-Stack</span>
+            <span class="hero-gradient">Web &amp; Mobile</span><br>
+            Full-Stack
         </h1>
-        <p class="text-base md:text-xl text-gray-400 max-w-2xl mb-6 md:mb-8 leading-relaxed">
+        <p class="text-base md:text-xl text-gray-400 max-w-2xl mb-8 md:mb-10 leading-relaxed">
             Je conçois des expériences numériques de bout en bout. Autonome et structuré, je transforme des idées
             complexes en applications performantes et sécurisées.
         </p>
-        <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full sm:w-auto">
-            <a href="#projects"
-                class="px-6 py-3 md:px-8 md:py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition text-center sm:text-left">
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <a href="#projects" class="btn btn-primary">
                 Voir mes travaux
             </a>
-            <a href="#" id="cv-download-btn"
-                class="px-6 py-3 md:px-8 md:py-4 border border-gray-600 rounded-lg hover:border-white transition flex items-center justify-center gap-2">
-                <span>Télécharger CV</span> <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <a href="#" id="cv-download-btn" class="btn btn-ghost">
+                <span>Télécharger CV</span>
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
             </a>
         </div>
     </section>
 
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+            <span>React</span><span class="sep">/</span><span>Next.js</span><span class="sep">/</span><span>TypeScript</span><span class="sep">/</span><span>Node.js</span><span class="sep">/</span><span>PHP · Symfony</span><span class="sep">/</span><span>React Native</span><span class="sep">/</span><span>PostgreSQL</span><span class="sep">/</span><span>Docker</span><span class="sep">/</span><span>CI/CD</span><span class="sep">/</span><span>WordPress</span><span class="sep">/</span>
+            <span>React</span><span class="sep">/</span><span>Next.js</span><span class="sep">/</span><span>TypeScript</span><span class="sep">/</span><span>Node.js</span><span class="sep">/</span><span>PHP · Symfony</span><span class="sep">/</span><span>React Native</span><span class="sep">/</span><span>PostgreSQL</span><span class="sep">/</span><span>Docker</span><span class="sep">/</span><span>CI/CD</span><span class="sep">/</span><span>WordPress</span><span class="sep">/</span>
+        </div>
+    </div>
+
     <section id="about" class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div class="glass-card p-6 md:p-8">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Qui suis-je ?</h2>
-            <p class="text-sm md:text-base text-gray-400 mb-4">
-                Je suis teko fabrice, ma soif d'apprendre me pousse à explorer sans cesse de nouvelles technologies. Je
+        <div>
+            <p class="eyebrow">[ 01 ] À propos</p>
+            <h2 class="text-3xl md:text-4xl font-bold mb-5 md:mb-6 uppercase">Qui suis-je ?</h2>
+            <p class="text-sm md:text-base text-gray-400 mb-4 leading-relaxed">
+                Je suis Teko Fabrice, ma soif d'apprendre me pousse à explorer sans cesse de nouvelles technologies. Je
                 ne code pas juste pour coder : je crée des solutions claires où l'expérience utilisateur est
                 centrale.
             </p>
-            <div class="mt-6 md:mt-8">
-                <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-blue-400 mb-3 md:mb-4">Passions &
-                    Loisirs</h3>
-                <ul class="space-y-2 md:space-y-3 text-sm md:text-base text-gray-300 list-square list-inside">
+            <div class="mt-8">
+                <h3 class="mono text-xs md:text-sm font-bold uppercase tracking-widest mb-4"
+                    style="color:var(--acid)">// Passions &amp; Loisirs</h3>
+                <ul class="space-y-3 text-sm md:text-base text-gray-200 list-square">
                     <li>Dev Jeux Vidéo (Unity, C#)</li>
-                    <li>Astronomie & Aérospatiale</li>
+                    <li>Astronomie &amp; Aérospatiale</li>
                     <li>Intelligence Artificielle</li>
                 </ul>
             </div>
         </div>
         <div class="relative mt-6 md:mt-0">
-            <div
-                class="glass-card p-4 md:p-6 font-mono text-xs md:text-sm text-blue-300 leading-loose border-l-4 border-blue-500 overflow-x-auto">
-                <p><span class="text-purple-400">const</span> <span class="text-yellow-200">teko</span> = {</p>
-                <p class="pl-4">fullName: <span class="text-green-300">"Teko Fabrice Folly"</span>,</p>
-                <p class="pl-4">role: <span class="text-green-300">"Full-Stack Developer"</span>,</p>
-                <p class="pl-4">location: <span class="text-green-300">"France"</span>,</p>
-                <p class="pl-4">focus: [<span class="text-green-300">"Performance"</span>, <span
-                        class="text-green-300">"Security"</span>, <span class="text-green-300">"UX"</span>]</p>
-                <p class="pl-4">hobbies: [<span class="text-green-300">"Space"</span>, <span
-                        class="text-green-300">"game dev"</span>, <span class="text-green-300">"IA"</span>]</p>
-                <p class="pl-4">stack: [<span class="text-green-300">"web dev"</span>, <span
-                        class="text-green-300">"mobile dev"</span>, <span class="text-green-300">"cms"</span>]</p>
-                <p>};</p>
+            <div class="terminal">
+                <div class="terminal__bar">
+                    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                    <span class="terminal__file">teko.js</span>
+                </div>
+                <div class="terminal__body">
+                    <p><span class="tok-key">const</span> <span class="tok-var">teko</span> <span class="tok-punc">=</span> {</p>
+                    <p class="pl-4">fullName<span class="tok-punc">:</span> <span class="tok-str">"Teko Fabrice Folly"</span><span class="tok-punc">,</span></p>
+                    <p class="pl-4">role<span class="tok-punc">:</span> <span class="tok-str">"Full-Stack Developer"</span><span class="tok-punc">,</span></p>
+                    <p class="pl-4">location<span class="tok-punc">:</span> <span class="tok-str">"France"</span><span class="tok-punc">,</span></p>
+                    <p class="pl-4">focus<span class="tok-punc">:</span> [<span class="tok-str">"Performance"</span><span class="tok-punc">,</span> <span class="tok-str">"Security"</span><span class="tok-punc">,</span> <span class="tok-str">"UX"</span>]<span class="tok-punc">,</span></p>
+                    <p class="pl-4">hobbies<span class="tok-punc">:</span> [<span class="tok-str">"Space"</span><span class="tok-punc">,</span> <span class="tok-str">"game dev"</span><span class="tok-punc">,</span> <span class="tok-str">"IA"</span>]<span class="tok-punc">,</span></p>
+                    <p class="pl-4">stack<span class="tok-punc">:</span> [<span class="tok-str">"web dev"</span><span class="tok-punc">,</span> <span class="tok-str">"mobile dev"</span><span class="tok-punc">,</span> <span class="tok-str">"cms"</span>]</p>
+                    <p>}<span class="tok-punc">;</span></p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="stack">
         <div class="mb-8 md:mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-2">Mes competence et technos</h2>
+            <p class="eyebrow">[ 02 ] Stack</p>
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 uppercase">Mes compétences &amp; technos</h2>
             <p class="text-sm md:text-base text-gray-500">Maîtrise de la stack moderne et sécurisée.</p>
         </div>
 
         <div class="flex flex-wrap justify-center gap-4 md:gap-6">
             <div class="glass-card p-4 md:p-6 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)]">
-                <div
-                    class="w-10 h-10 md:w-12 md:h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-400 mb-3 md:mb-4">
-                    <svg width="20" height="20" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
+                <div class="stack-ico">
+                    <svg width="22" height="22" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
                         <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                 </div>
-                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Web Full-Stack</h3>
+                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4 uppercase">Web Full-Stack</h3>
                 <p class="text-xs md:text-sm text-gray-400 mb-3 md:mb-4">Développement web full-stack, du design à la
                     logique serveur.</p>
                 <div class="flex flex-wrap">
@@ -135,15 +140,14 @@
             </div>
 
             <div class="glass-card p-4 md:p-6 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)]">
-                <div
-                    class="w-10 h-10 md:w-12 md:h-12 bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-400 mb-3 md:mb-4">
-                    <svg width="20" height="20" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
+                <div class="stack-ico">
+                    <svg width="22" height="22" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
                         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
                         <path d="M12 18h.01" />
                     </svg>
                 </div>
-                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Mobile & CMS</h3>
+                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4 uppercase">Mobile &amp; CMS</h3>
                 <p class="text-xs md:text-sm text-gray-400 mb-3 md:mb-4">Création d'application cross-platform performantes et sites
                     vitrines et e-commerce optimisés.</p>
                 <div class="flex flex-wrap">
@@ -155,15 +159,14 @@
             </div>
 
             <div class="glass-card p-4 md:p-6 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)]">
-                <div
-                    class="w-10 h-10 md:w-12 md:h-12 bg-green-900/30 rounded-lg flex items-center justify-center text-green-400 mb-3 md:mb-4">
-                    <svg width="20" height="20" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
+                <div class="stack-ico">
+                    <svg width="22" height="22" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
-                        <path
-                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        <ellipse cx="12" cy="5" rx="8" ry="3" />
+                        <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
                     </svg>
                 </div>
-                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Base de donnée</h3>
+                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4 uppercase">Base de donnée</h3>
                 <p class="text-xs md:text-sm text-gray-400 mb-3 md:mb-4">APIs scalables, authentification forte et bases
                     de données.</p>
                 <div class="flex flex-wrap">
@@ -174,14 +177,13 @@
             </div>
 
             <div class="glass-card p-4 md:p-6 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)]">
-                <div
-                    class="w-10 h-10 md:w-12 md:h-12 bg-orange-900/30 rounded-lg flex items-center justify-center text-orange-400 mb-3 md:mb-4">
-                    <svg width="20" height="20" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
+                <div class="stack-ico">
+                    <svg width="22" height="22" class="md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
                         <path d="M4 17l6-6-6-6M12 19h8" />
                     </svg>
                 </div>
-                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Ops</h3>
+                <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4 uppercase">Ops</h3>
                 <p class="text-xs md:text-sm text-gray-400 mb-3 md:mb-4">Versioning, intégration et déploiement continu,
                     conteneurisation des applications.</p>
                 <div class="flex flex-wrap">
@@ -196,49 +198,54 @@
     </section>
 
     <section id="projects">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">Projets Réalisés</h2>
+        <div class="mb-8 md:mb-12">
+            <p class="eyebrow">[ 03 ] Travaux</p>
+            <h2 class="text-3xl md:text-4xl font-bold uppercase">Projets Réalisés</h2>
+        </div>
         <div id="projects-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             <!-- Les projets seront chargés dynamiquement ici -->
         </div>
 
-        <div class="text-center mt-8 md:mt-12">
-            <p class="text-sm md:text-base text-gray-400 mb-3 md:mb-4">Également d'autres projets divers</p>
+        <div class="mt-10 md:mt-14">
+            <p class="text-sm md:text-base text-gray-500 mb-3 mono">// Également d'autres projets divers</p>
             <a href="#" id="portfolio-link"
-                class="text-sm md:text-base text-blue-400 hover:underline underline-offset-4">Voir le portfolio complet
-                →</a>
+                class="mono text-sm md:text-base font-bold uppercase tracking-wider inline-flex items-center gap-2 border-b-2 pb-1 transition"
+                style="color:var(--acid); border-color:var(--acid)">Voir le portfolio complet →</a>
         </div>
     </section>
 
     <section id="formation" class="max-w-3xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Parcours</h2>
-        <div id="parcours-container" class="relative border-l border-gray-700 ml-3 pl-4 md:pl-8 space-y-6 md:space-y-8">
+        <p class="eyebrow">[ 04 ] Parcours</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-10 uppercase">Formation</h2>
+        <div id="parcours-container" class="relative ml-3 pl-5 md:pl-8 space-y-8">
             <!-- Les parcours seront chargés dynamiquement ici -->
         </div>
     </section>
 
-    <footer id="contact" class="border-t border-gray-800 mt-12 md:mt-20 py-12 md:py-20 bg-black/50">
+    <footer id="contact" class="mt-12 md:mt-20 py-16 md:py-24" style="border-top:2px solid var(--line-strong); background:var(--bg-alt)">
         <div class="container mx-auto px-4 md:px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 md:mb-8 hero-gradient">Prêt à lancer un projet ?</h2>
-            <div class="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mb-8 md:mb-12">
+            <p class="eyebrow" style="justify-content:center; display:flex">[ 05 ] Contact</p>
+            <h2 class="text-4xl md:text-6xl font-bold mb-8 md:mb-10 uppercase">Prêt à lancer<br><span class="hero-gradient">un projet ?</span></h2>
+            <div class="flex flex-col md:flex-row justify-center gap-4 md:gap-6 mb-10 md:mb-12">
                 <a href="mailto:tekofabricefolly@gmail.com"
-                    class="glass-card px-6 py-3 md:px-8 md:py-4 hover:bg-white hover:text-black transition text-sm md:text-base break-all">
+                    class="glass-card px-6 py-4 hover:bg-white hover:text-black transition text-sm md:text-base break-all mono">
                     tekofabricefolly@gmail.com
                 </a>
                 <a href="tel:+33745178805"
-                    class="glass-card px-6 py-3 md:px-8 md:py-4 hover:bg-white hover:text-black transition text-sm md:text-base">
+                    class="glass-card px-6 py-4 hover:bg-white hover:text-black transition text-sm md:text-base mono">
                     +33 7 45 17 88 05
                 </a>
             </div>
-            <div class="flex justify-center gap-4 md:gap-6 text-sm md:text-base text-gray-500">
+            <div class="flex justify-center gap-6 text-sm md:text-base mono uppercase tracking-wider text-gray-400">
                 <a href="https://github.com/Teko13" class="hover:text-white transition">GitHub</a>
                 <a href="https://www.linkedin.com/in/teko-fabrice-folly-708a28233"
                     class="hover:text-white transition">LinkedIn</a>
             </div>
-            <p class="mt-6 md:mt-8 text-gray-700 text-xs md:text-sm">@teko-fabrice</p>
+            <p class="mt-8 text-gray-700 text-xs md:text-sm mono">@teko-fabrice</p>
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=2.0"></script>
 </body>
 
 </html>
